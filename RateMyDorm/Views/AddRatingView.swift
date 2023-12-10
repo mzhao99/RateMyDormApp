@@ -12,17 +12,46 @@ struct AddRatingView: View {
         
     var body: some View {
         Spacer().fullScreenCover(isPresented: $showAddRating, content: {
+            VStack {
+                ZStack {
+                    
+                }
+                
+                // main content
+                ScrollView {
+                    
+                }
+                
+                Spacer()
+                
+                // back button
+                HStack {
                     Button(action: {
                         showAddRating.toggle()
                     }, label: {
-                        Text("Close")
+                        Image(systemName: "arrow.down")
+                            .font(.system(size: 25))
+                            .foregroundColor(.white)
+                            .frame(width: 60, height: 60)
+                            .background(.teal)
+                            .cornerRadius(30)
                     })
+                }
+            }
         })
     }
 }
 
-//struct AddRatingView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddRatingView(showAddRating: show)
-//    }
-//}
+struct AddRatingView_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewWrapper()
+    }
+
+    struct PreviewWrapper: View {
+        @State private var showAddRating = true
+
+        var body: some View {
+            AddRatingView(showAddRating: $showAddRating)
+        }
+    }
+}

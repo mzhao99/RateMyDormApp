@@ -13,6 +13,7 @@ struct HomeNavView: View {
     @State private var showAddRating = false
     
     let icons = ["house", "book", "plus", "quote.bubble", "person"]
+    let captions = ["Home", "Blog", "Add Review", "Forum", "Me"]
     
     var body: some View {
         VStack {
@@ -54,10 +55,16 @@ struct HomeNavView: View {
                                 .frame(width: 60, height: 60)
                                 .background(.teal)
                                 .cornerRadius(30)
+                            
                         } else {
-                            Image(systemName: icons[number])
-                                .font(.system(size: 25))
-                                .foregroundColor(selectedIndex == number ? .black : Color(UIColor.lightGray))
+                            VStack(spacing: 2) {
+                                Image(systemName: icons[number])
+                                    .font(.system(size: 25))
+                                    .foregroundColor(selectedIndex == number ? .black : Color(UIColor.lightGray))
+                                Text(captions[number])
+                                    .foregroundColor(selectedIndex == number ? .black : Color(UIColor.lightGray))
+                                    .font(.caption)
+                            }
                         }
                     })
                     Spacer()
