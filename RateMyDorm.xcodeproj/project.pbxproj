@@ -13,6 +13,12 @@
 		5197A6E62B1BCAB10014D399 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5197A6E52B1BCAB10014D399 /* Preview Assets.xcassets */; };
 		5197A6E82B1BCAB10014D399 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6E72B1BCAB10014D399 /* Persistence.swift */; };
 		5197A6EB2B1BCAB10014D399 /* RateMyDorm.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6E92B1BCAB10014D399 /* RateMyDorm.xcdatamodeld */; };
+		5197A6F42B2535D50014D399 /* HomeNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6F32B2535D50014D399 /* HomeNavView.swift */; };
+		5197A6F62B253CA40014D399 /* BlogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6F52B253CA40014D399 /* BlogView.swift */; };
+		5197A6F82B253CB30014D399 /* AddRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6F72B253CB30014D399 /* AddRatingView.swift */; };
+		5197A6FA2B253CC00014D399 /* ForumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6F92B253CC00014D399 /* ForumView.swift */; };
+		5197A6FC2B253CD00014D399 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6FB2B253CD00014D399 /* UserProfileView.swift */; };
+		5197A6FE2B253DAB0014D399 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6FD2B253DAB0014D399 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +29,12 @@
 		5197A6E52B1BCAB10014D399 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5197A6E72B1BCAB10014D399 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5197A6EA2B1BCAB10014D399 /* RateMyDorm.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RateMyDorm.xcdatamodel; sourceTree = "<group>"; };
+		5197A6F32B2535D50014D399 /* HomeNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavView.swift; sourceTree = "<group>"; };
+		5197A6F52B253CA40014D399 /* BlogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogView.swift; sourceTree = "<group>"; };
+		5197A6F72B253CB30014D399 /* AddRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingView.swift; sourceTree = "<group>"; };
+		5197A6F92B253CC00014D399 /* ForumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumView.swift; sourceTree = "<group>"; };
+		5197A6FB2B253CD00014D399 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		5197A6FD2B253DAB0014D399 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +67,8 @@
 		5197A6DD2B1BCAAA0014D399 /* RateMyDorm */ = {
 			isa = PBXGroup;
 			children = (
+				5197A6F22B25266C0014D399 /* ViewModels */,
+				5197A6F12B25260B0014D399 /* Views */,
 				5197A6DE2B1BCAAA0014D399 /* RateMyDormApp.swift */,
 				5197A6E02B1BCAAA0014D399 /* ContentView.swift */,
 				5197A6E22B1BCAB10014D399 /* Assets.xcassets */,
@@ -71,6 +85,26 @@
 				5197A6E52B1BCAB10014D399 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5197A6F12B25260B0014D399 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5197A6F32B2535D50014D399 /* HomeNavView.swift */,
+				5197A6FD2B253DAB0014D399 /* HomeView.swift */,
+				5197A6F52B253CA40014D399 /* BlogView.swift */,
+				5197A6F72B253CB30014D399 /* AddRatingView.swift */,
+				5197A6F92B253CC00014D399 /* ForumView.swift */,
+				5197A6FB2B253CD00014D399 /* UserProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5197A6F22B25266C0014D399 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,8 +178,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5197A6E82B1BCAB10014D399 /* Persistence.swift in Sources */,
+				5197A6FC2B253CD00014D399 /* UserProfileView.swift in Sources */,
 				5197A6E12B1BCAAA0014D399 /* ContentView.swift in Sources */,
+				5197A6FE2B253DAB0014D399 /* HomeView.swift in Sources */,
 				5197A6DF2B1BCAAA0014D399 /* RateMyDormApp.swift in Sources */,
+				5197A6F42B2535D50014D399 /* HomeNavView.swift in Sources */,
+				5197A6F82B253CB30014D399 /* AddRatingView.swift in Sources */,
+				5197A6F62B253CA40014D399 /* BlogView.swift in Sources */,
+				5197A6FA2B253CC00014D399 /* ForumView.swift in Sources */,
 				5197A6EB2B1BCAB10014D399 /* RateMyDorm.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
