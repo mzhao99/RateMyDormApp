@@ -20,6 +20,7 @@ struct AddRatingView: View {
         Spacer().fullScreenCover(isPresented: $showAddRating, content: {
             NavigationStack {
                 VStack {
+                    // cancel button
                     HStack {
                         Button(action: {
                             // clear all the states
@@ -109,7 +110,9 @@ struct AddRatingView: View {
                                     .background(.teal)
                                     .cornerRadius(30)
                             })
-                            .navigationDestination(isPresented: $showSecondView, destination: { AddRatingSecondView() })
+                            .navigationDestination(isPresented: $showSecondView, destination: {
+                                AddRatingSecondView(showSecondView: $showSecondView, selectedDorm: $selected).navigationBarHidden(true)
+                            })
                         }
                     }
                 }

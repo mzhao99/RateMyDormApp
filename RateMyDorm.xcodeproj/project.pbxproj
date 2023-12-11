@@ -21,6 +21,8 @@
 		5197A6FE2B253DAB0014D399 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6FD2B253DAB0014D399 /* HomeView.swift */; };
 		5197A7002B26B10F0014D399 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6FF2B26B10F0014D399 /* StarRatingView.swift */; };
 		5197A7022B26E7240014D399 /* AddRatingSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7012B26E7240014D399 /* AddRatingSecondView.swift */; };
+		5197A7042B2791660014D399 /* StarRatingPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7032B2791660014D399 /* StarRatingPickerView.swift */; };
+		5197A7062B27AC400014D399 /* AddRatingThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		5197A6FD2B253DAB0014D399 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5197A6FF2B26B10F0014D399 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		5197A7012B26E7240014D399 /* AddRatingSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingSecondView.swift; sourceTree = "<group>"; };
+		5197A7032B2791660014D399 /* StarRatingPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingPickerView.swift; sourceTree = "<group>"; };
+		5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingThirdView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +103,11 @@
 				5197A6F52B253CA40014D399 /* BlogView.swift */,
 				5197A6F72B253CB30014D399 /* AddRatingView.swift */,
 				5197A7012B26E7240014D399 /* AddRatingSecondView.swift */,
+				5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */,
 				5197A6F92B253CC00014D399 /* ForumView.swift */,
 				5197A6FB2B253CD00014D399 /* UserProfileView.swift */,
 				5197A6FF2B26B10F0014D399 /* StarRatingView.swift */,
+				5197A7032B2791660014D399 /* StarRatingPickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -193,8 +199,10 @@
 				5197A6F82B253CB30014D399 /* AddRatingView.swift in Sources */,
 				5197A6F62B253CA40014D399 /* BlogView.swift in Sources */,
 				5197A7022B26E7240014D399 /* AddRatingSecondView.swift in Sources */,
+				5197A7042B2791660014D399 /* StarRatingPickerView.swift in Sources */,
 				5197A6FA2B253CC00014D399 /* ForumView.swift in Sources */,
 				5197A6EB2B1BCAB10014D399 /* RateMyDorm.xcdatamodeld in Sources */,
+				5197A7062B27AC400014D399 /* AddRatingThirdView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
