@@ -9,81 +9,109 @@ import SwiftUI
 
 struct AddRatingView: View {
     @Binding var showAddRating: Bool
-    @State private var searchText = ""
-    @State private var isSearching = false
+    @State private var showDropdown = false
+    @State private var selected = "Select a dorm"
+    @State private var dormSelected = false
         
-    private var filteredDorms: [String] {
-        if searchText.isEmpty {
-            return allDorms
-        } else {
-            return allDorms.filter { $0.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
-
-    private let allDorms = ["377 Hungtington Ave", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10"]
-    
-    private let subtitles = ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6", "Sub 7", "Sub 8", "Sub 9", "Sub 10"]
-    
-    private let photos = [""]
+    private let dorms = ["Dorm 1", "Dorm 2", "Dorm 3", "Dorm 4", "Dorm 5", "Dorm 6"]
     
     var body: some View {
         Spacer().fullScreenCover(isPresented: $showAddRating, content: {
             VStack {
-                ZStack {
-                    
-                }
-                
-                // main content
-                NavigationStack {
-                    List {
-                        ForEach(0..<allDorms.count, id: \.self) { num in
-                            HStack() {
-                                // dorm image
-                                AsyncImage(url: URL(string: "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720")) { image in image
-                                    .resizable()
-                                    .scaledToFit()
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .frame(width: 100)
-                                .cornerRadius(5)
-                                    
-                                //dorm title and rating
-                                VStack(alignment: .leading) {
-                                    Text(allDorms[num])
-                                        .bold()
-                                        .lineLimit(1)
-                                        .padding(.vertical, 3)
-                                    Text(subtitles[num])
-                                        .lineLimit(1)
-                                }
-                                .padding(.leading, 5)
-                                    
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                            }
-                            .frame(height: 80)
-                        }
-                    }
-                    .searchable(text: $searchText, prompt: "Search Dorm Name")
-                    .navigationTitle("Add Review")
-                    .navigationBarTitleDisplayMode(.inline)
+                HStack {
+                    Button(action: {
+                        // clear all the states
+                        selected = "Select a dorm"
+                        showDropdown = false
+                        dormSelected = false
+                        showAddRating.toggle()
+                    }, label: {
+                        Text("Cancel")
+                    })
+                    Spacer()
                 }
                 
                 Spacer()
-                
-                // back button
-                Button(action: {
-                    showAddRating.toggle()
-                }, label: {
-                    Image(systemName: "arrow.down")
-                        .font(.system(size: 25))
-                        .foregroundColor(.white)
-                        .frame(width: 60, height: 60)
-                        .background(.teal)
-                        .cornerRadius(30)
-                })
+
+                ZStack {
+                    // dropdown list
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                        ScrollView {
+                            VStack(spacing: 20) {
+                                ForEach(0..<dorms.count, id: \.self) { num in
+                                    Button {
+                                        withAnimation{
+                                            selected = dorms[num]
+                                            showDropdown.toggle()
+                                            dormSelected = true
+                                        }
+                                    } label: {
+                                        Text(dorms[num]).foregroundColor(.black)
+                                        Spacer()
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 15)
+                        }
+                    }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 2)
+                            .foregroundColor(.gray)
+                    }
+                    .frame(height: showDropdown ? 220 : 50)
+                    .offset(y: showDropdown ? 0 : -145)
+                    .foregroundColor(.white)
+                    
+                    // main selection box
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(height: 55)
+                            .foregroundColor(.white)
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray, lineWidth: 2)
+                            .frame(height: 50)
+                        HStack {
+                            Text(selected)
+                                .font(.system(size: 20, design: .rounded))
+                                .foregroundColor(selected == "Select a dorm" ? .gray : .black)
+                            Spacer()
+                            Image(systemName: "chevron.right").rotationEffect(.degrees(showDropdown ? 90 : 0))
+                        }
+                        .bold()
+                        .padding()
+                    }
+                    .offset(y: -145)
+                    .onTapGesture {
+                        withAnimation {
+                            showDropdown.toggle()
+                        }
+                    }
+                }
+
+                Spacer()
+
+                // 'continue' button
+                HStack {
+                    Spacer()
+                    if dormSelected {
+                        Button(action: {
+                        }, label: {
+                            Image(systemName: "arrow.right")
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                                .frame(width: 50, height: 50)
+                                .background(.teal)
+                                .cornerRadius(30)
+                        })
+                    }
+                }
             }
+            .padding(.leading, 30)
+            .padding(.trailing, 30)
         })
     }
 }

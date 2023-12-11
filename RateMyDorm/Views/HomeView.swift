@@ -12,12 +12,6 @@ struct HomeView: View {
     @State private var searchText = ""
     @State private var isSearching = false
     
-    private let allDorms = ["377 Hungtington Ave", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10"]
-    private let subtitles = ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6", "Sub 7", "Sub 8", "Sub 9", "Sub 10"]
-    private let photos = [""]
-    private let ratings = [2.3, 5, 4.5, 3.4, 4.2, 2.3, 5, 4.5, 3.4, 4.2]
-    private let numRatings = [2, 8, 10, 6, 14, 3, 8, 10, 6, 14]
-    
     private let data: [[String: Any]] = [
         [
             "name": "377 Hungtington Ave",
