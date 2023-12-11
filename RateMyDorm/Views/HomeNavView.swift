@@ -60,9 +60,9 @@ struct HomeNavView: View {
                             VStack(spacing: 2) {
                                 Image(systemName: icons[number])
                                     .font(.system(size: 25))
-                                    .foregroundColor(selectedIndex == number ? .black : Color(UIColor.lightGray))
+                                    .foregroundColor(selectedIndex == number ? .teal : Color(UIColor.lightGray))
                                 Text(captions[number])
-                                    .foregroundColor(selectedIndex == number ? .black : Color(UIColor.lightGray))
+                                    .foregroundColor(selectedIndex == number ? .teal : Color(UIColor.lightGray))
                                     .font(.caption)
                             }
                         }

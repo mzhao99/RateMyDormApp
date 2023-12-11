@@ -9,9 +9,10 @@ import SwiftUI
 
 struct BlogView: View {
 
-
        var body: some View {
-           Text("Blog")
+           NavigationStack {
+               Text("Blog")
+           }
        }
 }
 
