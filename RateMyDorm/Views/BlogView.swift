@@ -8,27 +8,11 @@
 import SwiftUI
 
 struct BlogView: View {
-    var body: some View {
-        NavigationView {
-            VStack {
-                Text("Second Screen")
-            }
-            .navigationTitle("Blog")
-        }
-    }
-}
 
 
-struct SecondTabView: View {
-    var body: some View {
-        Text("Second Tab View")
-    }
-}
-
-struct DetailView: View {
-    var body: some View {
-        Text("Detail")
-    }
+       var body: some View {
+           Text("Blog")
+       }
 }
 
 
