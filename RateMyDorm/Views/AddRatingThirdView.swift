@@ -59,9 +59,9 @@ struct AddRatingThirdView: View {
                             .font(.title)
                             .bold()
                             .padding(.bottom, 1)
-                            .padding(.top, 5)
+                            .padding(.top)
                         
-                        Text("Share the pros, cons, and what to expect when living at \(selectedDorm)")
+                        Text("Show us what your dorm was like. Photos help prospective students more than words do!")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                             
@@ -80,6 +80,7 @@ struct AddRatingThirdView: View {
                         } else {
                             Image("")
                                 .frame(width: 200, height: 120)
+                                .padding(.top, 10)
                         }
                     }
                     
@@ -111,7 +112,7 @@ struct AddRatingThirdView: View {
                                 .cornerRadius(30)
                         })
                     }
-                    .padding(.top, 112)
+                    .padding(.top, 100)
                 }
                 .padding()
                 .padding(.leading, 10)

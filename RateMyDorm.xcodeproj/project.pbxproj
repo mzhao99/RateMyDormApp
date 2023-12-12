@@ -23,6 +23,7 @@
 		5197A7022B26E7240014D399 /* AddRatingSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7012B26E7240014D399 /* AddRatingSecondView.swift */; };
 		5197A7042B2791660014D399 /* StarRatingPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7032B2791660014D399 /* StarRatingPickerView.swift */; };
 		5197A7062B27AC400014D399 /* AddRatingThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */; };
+		5197A7082B28CCD80014D399 /* AddRatingFourthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7072B28CCD80014D399 /* AddRatingFourthView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		5197A7012B26E7240014D399 /* AddRatingSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingSecondView.swift; sourceTree = "<group>"; };
 		5197A7032B2791660014D399 /* StarRatingPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingPickerView.swift; sourceTree = "<group>"; };
 		5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingThirdView.swift; sourceTree = "<group>"; };
+		5197A7072B28CCD80014D399 /* AddRatingFourthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingFourthView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				5197A6F72B253CB30014D399 /* AddRatingView.swift */,
 				5197A7012B26E7240014D399 /* AddRatingSecondView.swift */,
 				5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */,
+				5197A7072B28CCD80014D399 /* AddRatingFourthView.swift */,
 				5197A6F92B253CC00014D399 /* ForumView.swift */,
 				5197A6FB2B253CD00014D399 /* UserProfileView.swift */,
 				5197A6FF2B26B10F0014D399 /* StarRatingView.swift */,
@@ -193,6 +196,7 @@
 				5197A6FC2B253CD00014D399 /* UserProfileView.swift in Sources */,
 				5197A7002B26B10F0014D399 /* StarRatingView.swift in Sources */,
 				5197A6E12B1BCAAA0014D399 /* ContentView.swift in Sources */,
+				5197A7082B28CCD80014D399 /* AddRatingFourthView.swift in Sources */,
 				5197A6FE2B253DAB0014D399 /* HomeView.swift in Sources */,
 				5197A6DF2B1BCAAA0014D399 /* RateMyDormApp.swift in Sources */,
 				5197A6F42B2535D50014D399 /* HomeNavView.swift in Sources */,
