@@ -18,33 +18,152 @@ struct AddRatingFinalView: View {
     @Binding var selectedClassYears: Array<Bool>
     @Binding var selectedRoomTypes: Array<Bool>
     
+    @State private var universityName = "Northeastern"
+    @State private var classYears = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate Student"]
+    @State private var roomTypes = ["Single", "Double", "Triple", "Quad", "Suite", "Other"]
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         NavigationView {
-            
-            VStack {
-                // bottom buttons
-                HStack {
-                    // previous page
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Image(systemName: "arrow.left")
-                            .font(.system(size: 20))
-                            .foregroundColor(.white)
-                            .frame(width: 50, height: 50)
-                            .background(.teal)
-                            .cornerRadius(30)
-                    })
-                    
-                    Spacer()
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        ProgressView(value: 1)
+                            .tint(.teal)
+                        
+                        Text("Step 4: Review")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                            .padding(.top, 5)
+                        
+                        Text("Confirm your review for \(selectedDorm)")
+                            .font(.title)
+                            .bold()
+                            .padding(.bottom, 5)
+                            .padding(.top, 5)
+                        
+                        VStack(alignment: .leading) {
+                            HStack(alignment: .top) {
+                                VStack(alignment: .leading) {
+                                    Group {
+                                        Text("Room rating")
+                                            .bold()
+                                        StarRatingView(rating: Double(roomRating), maxRating: 5)
+                                            .frame(width: 100)
+                                    }
+                                    Group {
+                                        Text("Building rating")
+                                            .padding(.top, 5)
+                                            .bold()
+                                        StarRatingView(rating: Double(buildingRating), maxRating: 5)
+                                            .frame(width: 100)
+                                    }
+                                    Group {
+                                        Text("Bathroom rating")
+                                            .padding(.top, 5)
+                                            .bold()
+                                        StarRatingView(rating: Double(bathroomRating), maxRating: 5)
+                                            .frame(width: 100)
+                                    }
+                                    Group {
+                                        Text("Location rating")
+                                            .padding(.top, 5)
+                                            .bold()
+                                        StarRatingView(rating: Double(locationRating), maxRating: 5)
+                                            .frame(width: 100)
+                                    }
+                                }
+                                Spacer()
+                                VStack(alignment: .leading) {
+                                    Group {
+                                        Text("Class year(s)")
+                                            .padding(.bottom, 3)
+                                            .bold()
+                                        Text(zip(selectedClassYears, classYears)
+                                            .filter { $0.0 }
+                                            .map { $0.1 }.joined(separator: ", "))
+                                    }
+                                    
+                                    Group {
+                                        Text("Room type(s)")
+                                            .padding(.top, 1)
+                                            .padding(.bottom, 3)
+                                            .bold()
+                                        Text(zip(selectedRoomTypes, roomTypes)
+                                            .filter { $0.0 }
+                                            .map { $0.1 }.joined(separator: ", "))
+                                    }
+                                }
+                                Spacer()
+                            }
+                            .padding(.horizontal)
+                            .padding(.top)
+                            
+                            VStack(alignment: .leading) {
+                                Group {
+                                    Text("Comment")
+                                        .padding(.bottom, 2)
+                                        .bold()
+                                    Text(comment)
+                                }
+                                
+                                if let photo, let uiImage = UIImage(data: photo) {
+                                    Text("Photo")
+                                        .padding(.top, 3)
+                                        .bold()
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 200, height: 120)
+                                        .padding(.vertical, 15)
+                                } else {
+                                    Spacer()
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.bottom)
+                            .padding(.top, 3)
+                        }
+                        .background(Color(red: 0.95, green: 0.95, blue: 0.96, opacity: 1))
+                        .cornerRadius(15)
+                        .padding(.bottom, 15)
+                        
+                        Spacer()
+                        
+                        // bottom buttons
+                        HStack {
+                            // previous page
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss()
+                            }, label: {
+                                Image(systemName: "arrow.left")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                                    .frame(width: 50, height: 50)
+                                    .background(.teal)
+                                    .cornerRadius(30)
+                            })
+                            Spacer()
+                            
+                            Button(action: {
+                                
+                            }, label: {
+                                Text("Submit")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                                    .frame(width: 100, height: 50)
+                                    .background(.teal)
+                                    .cornerRadius(30)
+                            })
+                        }
+                    }
+                    // V Stack padding
+                    .padding()
+                    .padding(.horizontal, 10)
+                    .frame(minHeight: geometry.size.height)
                 }
+                .frame(width: geometry.size.width)
             }
-            // V Stack padding
-            .padding()
-            .padding(.leading, 10)
-            .padding(.trailing, 10)
         }
         .navigationBarHidden(true)
     }
