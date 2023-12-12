@@ -114,10 +114,8 @@ struct AddRatingFinalView: View {
                                     Image(uiImage: uiImage)
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: 200, height: 120)
+                                        .frame(width: 180, height: 100)
                                         .padding(.vertical, 15)
-                                } else {
-                                    Spacer()
                                 }
                             }
                             .padding(.horizontal)
@@ -129,33 +127,6 @@ struct AddRatingFinalView: View {
                         .padding(.bottom, 15)
                         
                         Spacer()
-                        
-                        // bottom buttons
-                        HStack {
-                            // previous page
-                            Button(action: {
-                                presentationMode.wrappedValue.dismiss()
-                            }, label: {
-                                Image(systemName: "arrow.left")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(.teal)
-                                    .cornerRadius(30)
-                            })
-                            Spacer()
-                            
-                            Button(action: {
-                                
-                            }, label: {
-                                Text("Submit")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.white)
-                                    .frame(width: 100, height: 50)
-                                    .background(.teal)
-                                    .cornerRadius(30)
-                            })
-                        }
                     }
                     // V Stack padding
                     .padding()
@@ -163,6 +134,40 @@ struct AddRatingFinalView: View {
                     .frame(minHeight: geometry.size.height)
                 }
                 .frame(width: geometry.size.width)
+ 
+                // bottom buttons
+                VStack {
+                    Spacer()
+                    HStack {
+                        // previous page
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Image(systemName: "arrow.left")
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                                .frame(width: 50, height: 50)
+                                .background(.teal)
+                                .cornerRadius(30)
+                        })
+                        Spacer()
+                        
+                        Button(action: {
+                            
+                        }, label: {
+                            Text("Submit")
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                                .frame(width: 100, height: 50)
+                                .background(.teal)
+                                .cornerRadius(30)
+                        })
+                    }
+                }
+                .frame(minHeight: geometry.size.height)
+                .padding()
+                .padding(.horizontal, 10)
+                .frame(minHeight: geometry.size.height)
             }
         }
         .navigationBarHidden(true)
@@ -171,6 +176,6 @@ struct AddRatingFinalView: View {
 
 struct AddRatingFinalView_Previews: PreviewProvider {
     static var previews: some View {
-        AddRatingFinalView(selectedDorm: .constant("Dorm 1"), roomRating: .constant(4), buildingRating: .constant(4), bathroomRating: .constant(3), locationRating: .constant(5), comment: .constant("This is a comment"), photo: .constant(UIImage(systemName: "photo")?.jpegData(compressionQuality: 1.0)), selectedClassYears: .constant([true, true, false, false, false]), selectedRoomTypes: .constant([true, false, false, true, false, false]))
+        AddRatingFinalView(selectedDorm: .constant("Dorm 1"), roomRating: .constant(4), buildingRating: .constant(4), bathroomRating: .constant(3), locationRating: .constant(5), comment: .constant("This is a very very very very very very very very very very very very very very long comment"), photo: .constant(UIImage(systemName: "photo")?.jpegData(compressionQuality: 1.0)), selectedClassYears: .constant([true, true, false, false, false]), selectedRoomTypes: .constant([true, false, false, true, false, false]))
     }
 }
