@@ -152,16 +152,19 @@ struct AddRatingFinalView: View {
                         })
                         Spacer()
                         
-                        Button(action: {
-                            
-                        }, label: {
-                            Text("Submit")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
-                                .frame(width: 100, height: 50)
-                                .background(.teal)
-                                .cornerRadius(30)
-                        })
+                        
+                        // next page
+                        NavigationLink(
+                            destination: AddRatingSuccessView(),
+                            label: {
+                                Text("Submit")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                                    .frame(width: 100, height: 50)
+                                    .background(.teal)
+                                    .cornerRadius(30)
+                            }
+                        )
                     }
                 }
                 .padding()

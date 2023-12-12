@@ -25,6 +25,7 @@
 		5197A7062B27AC400014D399 /* AddRatingThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */; };
 		5197A7082B28CCD80014D399 /* AddRatingFourthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7072B28CCD80014D399 /* AddRatingFourthView.swift */; };
 		5197A70A2B28D0240014D399 /* AddRatingFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7092B28D0240014D399 /* AddRatingFinalView.swift */; };
+		5197A70E2B2926F60014D399 /* AddRatingSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingThirdView.swift; sourceTree = "<group>"; };
 		5197A7072B28CCD80014D399 /* AddRatingFourthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingFourthView.swift; sourceTree = "<group>"; };
 		5197A7092B28D0240014D399 /* AddRatingFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingFinalView.swift; sourceTree = "<group>"; };
+		5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingSuccessView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */,
 				5197A7072B28CCD80014D399 /* AddRatingFourthView.swift */,
 				5197A7092B28D0240014D399 /* AddRatingFinalView.swift */,
+				5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */,
 				5197A6F92B253CC00014D399 /* ForumView.swift */,
 				5197A6FB2B253CD00014D399 /* UserProfileView.swift */,
 				5197A6FF2B26B10F0014D399 /* StarRatingView.swift */,
@@ -198,6 +201,7 @@
 				5197A6E82B1BCAB10014D399 /* Persistence.swift in Sources */,
 				5197A6FC2B253CD00014D399 /* UserProfileView.swift in Sources */,
 				5197A7002B26B10F0014D399 /* StarRatingView.swift in Sources */,
+				5197A70E2B2926F60014D399 /* AddRatingSuccessView.swift in Sources */,
 				5197A6E12B1BCAAA0014D399 /* ContentView.swift in Sources */,
 				5197A7082B28CCD80014D399 /* AddRatingFourthView.swift in Sources */,
 				5197A6FE2B253DAB0014D399 /* HomeView.swift in Sources */,
