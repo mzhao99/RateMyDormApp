@@ -60,7 +60,6 @@ struct AddRatingFourthView: View {
                             }
                         }
                         
-                        
                         Group {
                             Text("What type of room(s) did you have?")
                                 .font(.title)
@@ -85,38 +84,6 @@ struct AddRatingFourthView: View {
                         }
                         
                         Spacer()
-                        
-                        // bottom buttons
-                        HStack {
-                            // previous page
-                            Button(action: {
-                                presentationMode.wrappedValue.dismiss()
-                            }, label: {
-                                Image(systemName: "arrow.left")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(.teal)
-                                    .cornerRadius(30)
-                            })
-                            
-                            Spacer()
-                            
-                            // next page
-                            NavigationLink(
-                                destination: AddRatingFinalView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, selectedClassYears: $selectedClassYears, selectedRoomTypes: $selectedRoomTypes),
-                                isActive: $showFinalView,
-                                label: {
-                                    Image(systemName: "arrow.right")
-                                        .font(.system(size: 20))
-                                        .foregroundColor(.white)
-                                        .frame(width: 50, height: 50)
-                                        .background(.teal)
-                                        .cornerRadius(30)
-                                }
-                            )
-                        }
-                        .padding(.top, 5)
                     }
                     // V Stack padding
                     .padding()
@@ -124,6 +91,41 @@ struct AddRatingFourthView: View {
                     .frame(minHeight: geometry.size.height)
                 }
                 .frame(width: geometry.size.width)
+                
+                // bottom buttons
+                VStack {
+                    Spacer()
+                    HStack {
+                        // previous page
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Image(systemName: "arrow.left")
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                                .frame(width: 50, height: 50)
+                                .background(.teal)
+                                .cornerRadius(30)
+                        })
+                        Spacer()
+                        // next page
+                        NavigationLink(
+                            destination: AddRatingFinalView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, selectedClassYears: $selectedClassYears, selectedRoomTypes: $selectedRoomTypes),
+                            isActive: $showFinalView,
+                            label: {
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                                    .frame(width: 50, height: 50)
+                                    .background(.teal)
+                                    .cornerRadius(30)
+                            }
+                        )
+                    }
+                }
+                .padding()
+                .padding(.horizontal, 10)
+                .frame(minHeight: geometry.size.height)
             }
         }
         .navigationBarHidden(true)

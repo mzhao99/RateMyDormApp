@@ -112,21 +112,6 @@ struct AddRatingView: View {
                             })
                         }
                     }
-                    
-//                    // 'continue' button
-//                    NavigationLink(
-//                        destination: AddRatingSecondView(showSecondView: $showSecondView, selectedDorm: $selected),
-//                        isActive: $showSecondView,
-//                        label: {
-//                            Image(systemName: "arrow.right")
-//                                .font(.system(size: 20))
-//                                .foregroundColor(.white)
-//                                .frame(width: 50, height: 50)
-//                                .background(.teal)
-//                                .cornerRadius(30)
-//                        }
-//                    )
-                    
                 }
                 .padding(.leading, 30)
                 .padding(.trailing, 30)

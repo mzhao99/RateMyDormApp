@@ -164,7 +164,6 @@ struct AddRatingFinalView: View {
                         })
                     }
                 }
-                .frame(minHeight: geometry.size.height)
                 .padding()
                 .padding(.horizontal, 10)
                 .frame(minHeight: geometry.size.height)

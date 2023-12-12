@@ -44,7 +44,6 @@ struct AddRatingSecondView: View {
                                 .frame(width: 180)
                         }
                         
-                        
                         Group {
                             Text("Rate the building")
                                 .font(.title)
@@ -91,45 +90,50 @@ struct AddRatingSecondView: View {
                         }
                         
                         Spacer()
-                        
-                        // bottom buttons
-                        HStack {
-                            // previous page
-                            Button(action: {
-                                showSecondView = false
-                            }, label: {
-                                Image(systemName: "arrow.left")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(.teal)
-                                    .cornerRadius(30)
-                            })
-                            
-                            Spacer()
-                            
-                            // next page
-                            if (showNextButton()){
-                                NavigationLink(
-                                    destination: AddRatingThirdView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating),
-                                    isActive: $showThirdView,
-                                    label: {
-                                        Image(systemName: "arrow.right")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.white)
-                                            .frame(width: 50, height: 50)
-                                            .background(.teal)
-                                            .cornerRadius(30)
-                                    }
-                                )
-                            }
-                        }
                     }
+                    // V Stack spacing
                     .padding()
                     .padding(.horizontal, 10)
                     .frame(minHeight: geometry.size.height)
                 }
                 .frame(width: geometry.size.width)
+                
+                // bottom buttons
+                VStack {
+                    Spacer()
+                    HStack {
+                        // previous page
+                        Button(action: {
+                            showSecondView = false
+                        }, label: {
+                            Image(systemName: "arrow.left")
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                                .frame(width: 50, height: 50)
+                                .background(.teal)
+                                .cornerRadius(30)
+                        })
+                        Spacer()
+                        // next page
+                        if (showNextButton()){
+                            NavigationLink(
+                                destination: AddRatingThirdView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating),
+                                isActive: $showThirdView,
+                                label: {
+                                    Image(systemName: "arrow.right")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.white)
+                                        .frame(width: 50, height: 50)
+                                        .background(.teal)
+                                        .cornerRadius(30)
+                                }
+                            )
+                        }
+                    }
+                }
+                .padding()
+                .padding(.horizontal, 10)
+                .frame(minHeight: geometry.size.height)
             }
         }
         .navigationBarHidden(true)
