@@ -21,108 +21,112 @@ struct AddRatingThirdView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    ProgressView(value: 0.5)
-                        .tint(.teal)
-                    
-                    Text("Step 2: Additionals")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                        .padding(.top, 5)
-                    
-                    Group {
-                        Text("Write a comment")
-                            .font(.title)
-                            .bold()
-                            .padding(.bottom, 1)
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        ProgressView(value: 0.5)
+                            .tint(.teal)
+                        
+                        Text("Step 2: Additionals")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
                             .padding(.top, 5)
                         
-                        Text("Share the pros, cons, and what to expect when living at \(selectedDorm)")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                        
-                        TextEditor(text: $comment)
-                            .frame(height: 150)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 5)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.gray.opacity(0.2), lineWidth: 2)
-                            )
-                    }
-                    
-                    Group {
-                        Text("Upload Photo")
-                            .font(.title)
-                            .bold()
-                            .padding(.bottom, 1)
-                            .padding(.top)
-                        
-                        Text("Show us what your dorm was like. Photos help prospective students more than words do!")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+                        Group {
+                            Text("Write a comment")
+                                .font(.title)
+                                .bold()
+                                .padding(.bottom, 1)
+                                .padding(.top, 5)
                             
-                        
-                        PhotosPicker(selection: $photosPickerItem, matching: .images) {
-                            Text("Choose Image")
+                            Text("Share the pros, cons, and what to expect when living at \(selectedDorm)")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                            
+                            TextEditor(text: $comment)
+                                .frame(height: 150)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 5)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.gray.opacity(0.2), lineWidth: 2)
+                                )
                         }
-                        .padding(.top, 1)
                         
-                        if let photo, let uiImage = UIImage(data: photo) {
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 200, height: 120)
-                                .padding(.top, 10)
-                        } else {
-                            Image("")
-                                .frame(width: 200, height: 120)
-                                .padding(.top, 10)
+                        Group {
+                            Text("Upload Photo")
+                                .font(.title)
+                                .bold()
+                                .padding(.bottom, 1)
+                                .padding(.top)
+                            
+                            Text("Show us what your dorm was like. Photos help prospective students more than words do!")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                            
+                            
+                            PhotosPicker(selection: $photosPickerItem, matching: .images) {
+                                Text("Choose Image")
+                            }
+                            .padding(.top, 1)
+                            
+                            if let photo, let uiImage = UIImage(data: photo) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 200, height: 120)
+                                    .padding(.top, 10)
+                            } else {
+                                Image("")
+                                    .frame(width: 200, height: 120)
+                                    .padding(.top, 10)
+                            }
                         }
-                    }
-                    
-                    // bottom buttons
-                    HStack {
-                        // previous page
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }, label: {
-                            Image(systemName: "arrow.left")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
-                                .frame(width: 50, height: 50)
-                                .background(.teal)
-                                .cornerRadius(30)
-                        })
                         
                         Spacer()
                         
-                        // next page
-                        NavigationLink(
-                            destination: AddRatingFourthView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo),
-                            label: {
-                                Image(systemName: "arrow.right")
+                        // bottom buttons
+                        HStack {
+                            // previous page
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss()
+                            }, label: {
+                                Image(systemName: "arrow.left")
                                     .font(.system(size: 20))
                                     .foregroundColor(.white)
                                     .frame(width: 50, height: 50)
                                     .background(.teal)
                                     .cornerRadius(30)
-                            }
-                        )
+                            })
+                            
+                            Spacer()
+                            
+                            // next page
+                            NavigationLink(
+                                destination: AddRatingFourthView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo),
+                                label: {
+                                    Image(systemName: "arrow.right")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.white)
+                                        .frame(width: 50, height: 50)
+                                        .background(.teal)
+                                        .cornerRadius(30)
+                                }
+                            )
+                        }
                     }
-                    .padding(.top, 100)
-                }
-                .padding()
-                .padding(.leading, 10)
-                .padding(.trailing, 10)
-                .onChange(of: photosPickerItem) { _ in
-                    Task {
-                        if let data = try? await photosPickerItem?.loadTransferable(type: Data.self) {
-                            photo = data
+                    .padding()
+                    .padding(.horizontal, 10)
+                    .frame(minHeight: geometry.size.height)
+                    .onChange(of: photosPickerItem) { _ in
+                        Task {
+                            if let data = try? await photosPickerItem?.loadTransferable(type: Data.self) {
+                                photo = data
+                            }
                         }
                     }
                 }
+                .frame(width: geometry.size.width)
             }
         }
         .navigationBarHidden(true)

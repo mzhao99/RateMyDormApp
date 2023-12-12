@@ -25,100 +25,105 @@ struct AddRatingFourthView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    ProgressView(value: 0.75)
-                        .tint(.teal)
-                    
-                    Text("Step 3: Class Years & Room Type")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                        .padding(.top, 5)
-                    
-                    Group {
-                        Text("What class year(s) did you live here?")
-                            .font(.title)
-                            .bold()
-                            .padding(.bottom, 5)
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        ProgressView(value: 0.75)
+                            .tint(.teal)
+                        
+                        Text("Step 3: Class Years & Room Type")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
                             .padding(.top, 5)
                         
-                        ForEach(0..<5) { index in
-                            HStack {
-                                Button(action: {
-                                    selectedClassYears[index].toggle()
-                                }) {
-                                    Image(systemName: selectedClassYears[index] ? "checkmark.square.fill" : "square")
-                                        .resizable()
-                                        .frame(width: 25, height: 25)
-                                        .foregroundColor(selectedClassYears[index] ? .teal : .gray)
+                        Group {
+                            Text("What class year(s) did you live here?")
+                                .font(.title)
+                                .bold()
+                                .padding(.bottom, 5)
+                                .padding(.top, 5)
+                            
+                            ForEach(0..<5) { index in
+                                HStack {
+                                    Button(action: {
+                                        selectedClassYears[index].toggle()
+                                    }) {
+                                        Image(systemName: selectedClassYears[index] ? "checkmark.square.fill" : "square")
+                                            .resizable()
+                                            .frame(width: 25, height: 25)
+                                            .foregroundColor(selectedClassYears[index] ? .teal : .gray)
+                                    }
+                                    Text(classYears[index])
+                                        .padding(.horizontal, 5)
                                 }
-                                Text(classYears[index])
-                                    .padding(.horizontal, 5)
+                                .padding(.bottom, 6)
                             }
-                            .padding(.bottom, 10)
                         }
-                    }
-
-                    
-                    Group {
-                        Text("What type of room(s) did you have?")
-                            .font(.title)
-                            .bold()
-                            .padding(.bottom, 5)
                         
-                        ForEach(0..<6) { index in
-                            HStack {
-                                Button(action: {
-                                    selectedRoomTypes[index].toggle()
-                                }) {
-                                    Image(systemName: selectedRoomTypes[index] ? "checkmark.square.fill" : "square")
-                                        .resizable()
-                                        .frame(width: 25, height: 25)
-                                        .foregroundColor(selectedRoomTypes[index] ? .teal : .gray)
+                        
+                        Group {
+                            Text("What type of room(s) did you have?")
+                                .font(.title)
+                                .bold()
+                                .padding(.bottom, 5)
+                            
+                            ForEach(0..<6) { index in
+                                HStack {
+                                    Button(action: {
+                                        selectedRoomTypes[index].toggle()
+                                    }) {
+                                        Image(systemName: selectedRoomTypes[index] ? "checkmark.square.fill" : "square")
+                                            .resizable()
+                                            .frame(width: 25, height: 25)
+                                            .foregroundColor(selectedRoomTypes[index] ? .teal : .gray)
+                                    }
+                                    Text(roomTypes[index])
+                                        .padding(.horizontal, 5)
                                 }
-                                Text(roomTypes[index])
-                                    .padding(.horizontal, 5)
+                                .padding(.bottom, 6)
                             }
-                            .padding(.bottom, 10)
                         }
-                    }
-                    
-                    // bottom buttons
-                    HStack {
-                        // previous page
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }, label: {
-                            Image(systemName: "arrow.left")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
-                                .frame(width: 50, height: 50)
-                                .background(.teal)
-                                .cornerRadius(30)
-                        })
                         
                         Spacer()
                         
-                        // next page
-                        NavigationLink(
-                            destination: AddRatingFinalView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, selectedClassYears: $selectedClassYears, selectedRoomTypes: $selectedRoomTypes),
-                            isActive: $showFinalView,
-                            label: {
-                                Image(systemName: "arrow.right")
+                        // bottom buttons
+                        HStack {
+                            // previous page
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss()
+                            }, label: {
+                                Image(systemName: "arrow.left")
                                     .font(.system(size: 20))
                                     .foregroundColor(.white)
                                     .frame(width: 50, height: 50)
                                     .background(.teal)
                                     .cornerRadius(30)
-                            }
-                        )
+                            })
+                            
+                            Spacer()
+                            
+                            // next page
+                            NavigationLink(
+                                destination: AddRatingFinalView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, selectedClassYears: $selectedClassYears, selectedRoomTypes: $selectedRoomTypes),
+                                isActive: $showFinalView,
+                                label: {
+                                    Image(systemName: "arrow.right")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.white)
+                                        .frame(width: 50, height: 50)
+                                        .background(.teal)
+                                        .cornerRadius(30)
+                                }
+                            )
+                        }
+                        .padding(.top, 5)
                     }
-                    .padding(.top, 5)
+                    // V Stack padding
+                    .padding()
+                    .padding(.horizontal, 10)
+                    .frame(minHeight: geometry.size.height)
                 }
-                // V Stack padding
-                .padding()
-                .padding(.leading, 10)
-                .padding(.trailing, 10)
+                .frame(width: geometry.size.width)
             }
         }
         .navigationBarHidden(true)
