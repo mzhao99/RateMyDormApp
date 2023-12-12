@@ -89,6 +89,7 @@ struct AddRatingSecondView: View {
                             .frame(width: 180)
                     }
 
+                    // bottom buttons
                     HStack {
                         // previous page
                         Button(action: {
@@ -101,25 +102,23 @@ struct AddRatingSecondView: View {
                                 .background(.teal)
                                 .cornerRadius(30)
                         })
-                        
-                        
+
                         Spacer()
                         
                         // next page
                         if (showNextButton()){
-                            Button(action: {
-                                showThirdView = true
-                            }, label: {
-                                Image(systemName: "arrow.right")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(.teal)
-                                    .cornerRadius(30)
-                            })
-                            .navigationDestination(isPresented: $showThirdView, destination: {
-                                AddRatingThirdView(showThirdView: $showThirdView, selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating).navigationBarHidden(true)
-                            })
+                            NavigationLink(
+                                destination: AddRatingThirdView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating),
+                                isActive: $showThirdView,
+                                label: {
+                                    Image(systemName: "arrow.right")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.white)
+                                        .frame(width: 50, height: 50)
+                                        .background(.teal)
+                                        .cornerRadius(30)
+                                }
+                            )
                         }
                     }
                     .padding(.top, 140)
@@ -129,6 +128,7 @@ struct AddRatingSecondView: View {
                 .padding(.trailing, 10)
             }
         }
+        .navigationBarHidden(true)
     }
     
     func showNextButton() -> Bool {

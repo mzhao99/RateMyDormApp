@@ -110,14 +110,29 @@ struct AddRatingView: View {
                                     .background(.teal)
                                     .cornerRadius(30)
                             })
-                            .navigationDestination(isPresented: $showSecondView, destination: {
-                                AddRatingSecondView(showSecondView: $showSecondView, selectedDorm: $selected).navigationBarHidden(true)
-                            })
                         }
                     }
+                    
+//                    // 'continue' button
+//                    NavigationLink(
+//                        destination: AddRatingSecondView(showSecondView: $showSecondView, selectedDorm: $selected),
+//                        isActive: $showSecondView,
+//                        label: {
+//                            Image(systemName: "arrow.right")
+//                                .font(.system(size: 20))
+//                                .foregroundColor(.white)
+//                                .frame(width: 50, height: 50)
+//                                .background(.teal)
+//                                .cornerRadius(30)
+//                        }
+//                    )
+                    
                 }
                 .padding(.leading, 30)
                 .padding(.trailing, 30)
+                .navigationDestination(isPresented: $showSecondView) {
+                    AddRatingSecondView(showSecondView: $showSecondView, selectedDorm: $selected)
+                }
             }
         })
     }
