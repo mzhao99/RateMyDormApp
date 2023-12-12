@@ -101,7 +101,7 @@ struct AddRatingFourthView: View {
                         
                         // next page
                         NavigationLink(
-                            destination: AddRatingFinalView(),
+                            destination: AddRatingFinalView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, selectedClassYears: $selectedClassYears, selectedRoomTypes: $selectedRoomTypes),
                             isActive: $showFinalView,
                             label: {
                                 Image(systemName: "arrow.right")
