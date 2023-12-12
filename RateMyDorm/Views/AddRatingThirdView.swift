@@ -14,8 +14,6 @@ struct AddRatingThirdView: View {
     @Binding var buildingRating: Int
     @Binding var bathroomRating: Int
     @Binding var locationRating: Int
-    
-    @State private var showFourthView = false
     @State private var comment: String = ""
     @State var photo: Data?
     @State private var photosPickerItem: PhotosPickerItem?
@@ -101,16 +99,17 @@ struct AddRatingThirdView: View {
                         Spacer()
                         
                         // next page
-                        Button(action: {
-                                showFourthView = true
-                        }, label: {
-                            Image(systemName: "arrow.right")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
-                                .frame(width: 50, height: 50)
-                                .background(.teal)
-                                .cornerRadius(30)
-                        })
+                        NavigationLink(
+                            destination: AddRatingFourthView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo),
+                            label: {
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                                    .frame(width: 50, height: 50)
+                                    .background(.teal)
+                                    .cornerRadius(30)
+                            }
+                        )
                     }
                     .padding(.top, 100)
                 }
