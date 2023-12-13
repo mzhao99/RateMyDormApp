@@ -80,11 +80,11 @@ struct LoginView: View {
     }
 
     func login() {
-        // Implement your login logic here
+        
     }
 
     func register() {
-        // Implement your registration logic here
+        CreateAccountView()
     }
 }
 
