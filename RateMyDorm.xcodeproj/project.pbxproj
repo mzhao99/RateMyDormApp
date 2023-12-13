@@ -26,6 +26,7 @@
 		5197A7082B28CCD80014D399 /* AddRatingFourthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7072B28CCD80014D399 /* AddRatingFourthView.swift */; };
 		5197A70A2B28D0240014D399 /* AddRatingFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7092B28D0240014D399 /* AddRatingFinalView.swift */; };
 		5197A70E2B2926F60014D399 /* AddRatingSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */; };
+		5197A7102B2961450014D399 /* BlogCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A70F2B2961440014D399 /* BlogCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		5197A7072B28CCD80014D399 /* AddRatingFourthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingFourthView.swift; sourceTree = "<group>"; };
 		5197A7092B28D0240014D399 /* AddRatingFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingFinalView.swift; sourceTree = "<group>"; };
 		5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingSuccessView.swift; sourceTree = "<group>"; };
+		5197A70F2B2961440014D399 /* BlogCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				5197A6F32B2535D50014D399 /* HomeNavView.swift */,
 				5197A6FD2B253DAB0014D399 /* HomeView.swift */,
 				5197A6F52B253CA40014D399 /* BlogView.swift */,
+				5197A70F2B2961440014D399 /* BlogCardView.swift */,
 				5197A6F72B253CB30014D399 /* AddRatingView.swift */,
 				5197A7012B26E7240014D399 /* AddRatingSecondView.swift */,
 				5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */,
@@ -204,6 +207,7 @@
 				5197A70E2B2926F60014D399 /* AddRatingSuccessView.swift in Sources */,
 				5197A6E12B1BCAAA0014D399 /* ContentView.swift in Sources */,
 				5197A7082B28CCD80014D399 /* AddRatingFourthView.swift in Sources */,
+				5197A7102B2961450014D399 /* BlogCardView.swift in Sources */,
 				5197A6FE2B253DAB0014D399 /* HomeView.swift in Sources */,
 				5197A70A2B28D0240014D399 /* AddRatingFinalView.swift in Sources */,
 				5197A6DF2B1BCAAA0014D399 /* RateMyDormApp.swift in Sources */,
