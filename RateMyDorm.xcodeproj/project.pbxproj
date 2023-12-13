@@ -39,6 +39,7 @@
 		51C6FC162B2A2C1D001F8163 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC152B2A2C1D001F8163 /* FacebookLogin */; };
 		51C6FC182B2A2C1D001F8163 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC172B2A2C1D001F8163 /* FacebookShare */; };
 		CCEAC4442B2A37FE00F62C30 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAC4432B2A37FE00F62C30 /* CreateAccountView.swift */; };
+		CCEAC4462B2A4C2400F62C30 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		51C6FC0C2B2A2A2A001F8163 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		51C6FC192B2A2C81001F8163 /* RateMyDormDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RateMyDormDebug.entitlements; sourceTree = "<group>"; };
 		CCEAC4432B2A37FE00F62C30 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				5197A6FF2B26B10F0014D399 /* StarRatingView.swift */,
 				5197A7032B2791660014D399 /* StarRatingPickerView.swift */,
 				CCEAC4432B2A37FE00F62C30 /* CreateAccountView.swift */,
+				CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				5197A6F62B253CA40014D399 /* BlogView.swift in Sources */,
 				5197A7022B26E7240014D399 /* AddRatingSecondView.swift in Sources */,
 				51C6FC0D2B2A2A2D001F8163 /* LoginView.swift in Sources */,
+				CCEAC4462B2A4C2400F62C30 /* ProfileView.swift in Sources */,
 				51C6FC0B2B2A2A1B001F8163 /* SceneDelegate.swift in Sources */,
 				5197A7042B2791660014D399 /* StarRatingPickerView.swift in Sources */,
 				5197A6FA2B253CC00014D399 /* ForumView.swift in Sources */,
