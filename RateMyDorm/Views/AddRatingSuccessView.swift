@@ -8,8 +8,58 @@
 import SwiftUI
 
 struct AddRatingSuccessView: View {
+    @State private var opacity1: Double = 0
+    @State private var opacity2: Double = 0
+    @State private var opacity3: Double = 0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                Text("Congrats!🎉")
+                    .font(.system(size: 36))
+                    .bold()
+                    .padding(.bottom, 5)
+                    .opacity(opacity1)
+                    .onAppear {
+                        withAnimation(Animation.easeInOut(duration: 1.5).delay(0)) {
+                            opacity1 = 1
+                        }
+                    }
+                
+                Text("Your review has been submitted")
+                    .font(.system(size: 20))
+                    .padding(.bottom, 15)
+                    .opacity(opacity2)
+                    .onAppear {
+                        withAnimation(Animation.easeInOut(duration: 1.5).delay(1)) {
+                            opacity2 = 1
+                        }
+                    }
+
+                // back to home page
+                NavigationLink(
+                    destination: HomeNavView().navigationBarBackButtonHidden(true),
+                    label: {
+                        Text("Back to home")
+                            .font(.system(size: 20))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 55)
+                            .background(.teal)
+                            .cornerRadius(20)
+                    }
+                )
+                .padding(.horizontal, 20)
+                .opacity(opacity3)
+                .onAppear {
+                    withAnimation(Animation.easeInOut(duration: 1.5).delay(2)) {
+                        opacity3 = 1
+                    }
+                }
+            }
+            .padding()
+        }
+        .navigationBarHidden(true)
     }
 }
 
