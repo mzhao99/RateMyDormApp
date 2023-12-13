@@ -38,6 +38,8 @@
 		51C6FC142B2A2C1D001F8163 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC132B2A2C1D001F8163 /* FacebookCore */; };
 		51C6FC162B2A2C1D001F8163 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC152B2A2C1D001F8163 /* FacebookLogin */; };
 		51C6FC182B2A2C1D001F8163 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC172B2A2C1D001F8163 /* FacebookShare */; };
+		CCA117402B2A6EC6002B6B55 /* StoreUniversity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */; };
+		CCA117432B2A721C002B6B55 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CCA117422B2A721C002B6B55 /* FirebaseDatabase */; };
 		CCEAC4442B2A37FE00F62C30 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAC4432B2A37FE00F62C30 /* CreateAccountView.swift */; };
 		CCEAC4462B2A4C2400F62C30 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
@@ -69,6 +71,7 @@
 		51C6FC092B2A2A1B001F8163 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		51C6FC0C2B2A2A2A001F8163 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		51C6FC192B2A2C81001F8163 /* RateMyDormDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RateMyDormDebug.entitlements; sourceTree = "<group>"; };
+		CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUniversity.swift; sourceTree = "<group>"; };
 		CCEAC4432B2A37FE00F62C30 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +87,7 @@
 				51C6FC122B2A2C1D001F8163 /* FacebookBasics in Frameworks */,
 				51C6FBEA2B2A01B3001F8163 /* FirebaseAuth in Frameworks */,
 				51C6FBEC2B2A01B3001F8163 /* FirebaseFirestore in Frameworks */,
+				CCA117432B2A721C002B6B55 /* FirebaseDatabase in Frameworks */,
 				51C6FC182B2A2C1D001F8163 /* FacebookShare in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +100,7 @@
 			children = (
 				5197A6DD2B1BCAAA0014D399 /* RateMyDorm */,
 				5197A6DC2B1BCAAA0014D399 /* Products */,
+				CCA117412B2A721C002B6B55 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,6 +159,7 @@
 				5197A7032B2791660014D399 /* StarRatingPickerView.swift */,
 				CCEAC4432B2A37FE00F62C30 /* CreateAccountView.swift */,
 				CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */,
+				CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,6 +169,13 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CCA117412B2A721C002B6B55 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +202,7 @@
 				51C6FC132B2A2C1D001F8163 /* FacebookCore */,
 				51C6FC152B2A2C1D001F8163 /* FacebookLogin */,
 				51C6FC172B2A2C1D001F8163 /* FacebookShare */,
+				CCA117422B2A721C002B6B55 /* FirebaseDatabase */,
 			);
 			productName = RateMyDorm;
 			productReference = 5197A6DB2B1BCAAA0014D399 /* RateMyDorm.app */;
@@ -272,6 +286,7 @@
 				5197A6FA2B253CC00014D399 /* ForumView.swift in Sources */,
 				5197A6EB2B1BCAB10014D399 /* RateMyDorm.xcdatamodeld in Sources */,
 				5197A7062B27AC400014D399 /* AddRatingThirdView.swift in Sources */,
+				CCA117402B2A6EC6002B6B55 /* StoreUniversity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +416,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RateMyDorm/Preview Content\"";
+				DEVELOPMENT_TEAM = 8S2N2SH3KW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -429,6 +445,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RateMyDorm/Preview Content\"";
+				DEVELOPMENT_TEAM = 8S2N2SH3KW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -526,6 +543,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 51C6FC0E2B2A2C1D001F8163 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookShare;
+		};
+		CCA117422B2A721C002B6B55 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51C6FBE82B2A01B2001F8163 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 
