@@ -26,5 +26,29 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:198737740581:ios:f665beb03d368032ee90cc</string>
+    
+    <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>fb877452460589199</string>
+                </array>
+            </dict>
+        </array>
+        <key>FacebookAppID</key>
+        <string>877452460589199</string>
+        <key>FacebookClientToken</key>
+        <string>cf2477dfb8f2e12481df02ea64ed508f</string>
+        <key>FacebookDisplayName</key>
+        <string>RateMyDorm</string>
+        <key>LSApplicationQueriesSchemes</key>
+        <array>
+            <string>fbapi</string>
+            <string>fb-messenger-share-api</string>
+        </array>
+        <key>UIBackgroundModes</key>
+        <array/>
+    
 </dict>
 </plist>

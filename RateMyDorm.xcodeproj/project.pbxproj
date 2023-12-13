@@ -30,6 +30,14 @@
 		51C6FBEA2B2A01B3001F8163 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FBE92B2A01B3001F8163 /* FirebaseAuth */; };
 		51C6FBEC2B2A01B3001F8163 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FBEB2B2A01B3001F8163 /* FirebaseFirestore */; };
 		51C6FBEE2B2A0263001F8163 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51C6FBED2B2A0263001F8163 /* GoogleService-Info.plist */; };
+		51C6FC0A2B2A2A1B001F8163 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C6FC082B2A2A1B001F8163 /* AppDelegate.swift */; };
+		51C6FC0B2B2A2A1B001F8163 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C6FC092B2A2A1B001F8163 /* SceneDelegate.swift */; };
+		51C6FC0D2B2A2A2D001F8163 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C6FC0C2B2A2A2A001F8163 /* LoginView.swift */; };
+		51C6FC102B2A2C1D001F8163 /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC0F2B2A2C1D001F8163 /* FacebookAEM */; };
+		51C6FC122B2A2C1D001F8163 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC112B2A2C1D001F8163 /* FacebookBasics */; };
+		51C6FC142B2A2C1D001F8163 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC132B2A2C1D001F8163 /* FacebookCore */; };
+		51C6FC162B2A2C1D001F8163 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC152B2A2C1D001F8163 /* FacebookLogin */; };
+		51C6FC182B2A2C1D001F8163 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC172B2A2C1D001F8163 /* FacebookShare */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +63,10 @@
 		5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingSuccessView.swift; sourceTree = "<group>"; };
 		5197A70F2B2961440014D399 /* BlogCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogCardView.swift; sourceTree = "<group>"; };
 		51C6FBED2B2A0263001F8163 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		51C6FC082B2A2A1B001F8163 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		51C6FC092B2A2A1B001F8163 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		51C6FC0C2B2A2A2A001F8163 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		51C6FC192B2A2C81001F8163 /* RateMyDormDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RateMyDormDebug.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +74,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51C6FC102B2A2C1D001F8163 /* FacebookAEM in Frameworks */,
+				51C6FC142B2A2C1D001F8163 /* FacebookCore in Frameworks */,
+				51C6FC162B2A2C1D001F8163 /* FacebookLogin in Frameworks */,
+				51C6FC122B2A2C1D001F8163 /* FacebookBasics in Frameworks */,
 				51C6FBEA2B2A01B3001F8163 /* FirebaseAuth in Frameworks */,
 				51C6FBEC2B2A01B3001F8163 /* FirebaseFirestore in Frameworks */,
+				51C6FC182B2A2C1D001F8163 /* FacebookShare in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +106,9 @@
 		5197A6DD2B1BCAAA0014D399 /* RateMyDorm */ = {
 			isa = PBXGroup;
 			children = (
+				51C6FC192B2A2C81001F8163 /* RateMyDormDebug.entitlements */,
+				51C6FC082B2A2A1B001F8163 /* AppDelegate.swift */,
+				51C6FC092B2A2A1B001F8163 /* SceneDelegate.swift */,
 				51C6FBED2B2A0263001F8163 /* GoogleService-Info.plist */,
 				5197A6F22B25266C0014D399 /* ViewModels */,
 				5197A6F12B25260B0014D399 /* Views */,
@@ -113,6 +133,7 @@
 		5197A6F12B25260B0014D399 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				51C6FC0C2B2A2A2A001F8163 /* LoginView.swift */,
 				5197A6F32B2535D50014D399 /* HomeNavView.swift */,
 				5197A6FD2B253DAB0014D399 /* HomeView.swift */,
 				5197A6F52B253CA40014D399 /* BlogView.swift */,
@@ -157,6 +178,11 @@
 			packageProductDependencies = (
 				51C6FBE92B2A01B3001F8163 /* FirebaseAuth */,
 				51C6FBEB2B2A01B3001F8163 /* FirebaseFirestore */,
+				51C6FC0F2B2A2C1D001F8163 /* FacebookAEM */,
+				51C6FC112B2A2C1D001F8163 /* FacebookBasics */,
+				51C6FC132B2A2C1D001F8163 /* FacebookCore */,
+				51C6FC152B2A2C1D001F8163 /* FacebookLogin */,
+				51C6FC172B2A2C1D001F8163 /* FacebookShare */,
 			);
 			productName = RateMyDorm;
 			productReference = 5197A6DB2B1BCAAA0014D399 /* RateMyDorm.app */;
@@ -188,6 +214,7 @@
 			mainGroup = 5197A6D22B1BCAAA0014D399;
 			packageReferences = (
 				51C6FBE82B2A01B2001F8163 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				51C6FC0E2B2A2C1D001F8163 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 5197A6DC2B1BCAAA0014D399 /* Products */;
 			projectDirPath = "";
@@ -218,6 +245,7 @@
 			files = (
 				5197A6E82B1BCAB10014D399 /* Persistence.swift in Sources */,
 				5197A6FC2B253CD00014D399 /* UserProfileView.swift in Sources */,
+				51C6FC0A2B2A2A1B001F8163 /* AppDelegate.swift in Sources */,
 				5197A7002B26B10F0014D399 /* StarRatingView.swift in Sources */,
 				5197A70E2B2926F60014D399 /* AddRatingSuccessView.swift in Sources */,
 				5197A6E12B1BCAAA0014D399 /* ContentView.swift in Sources */,
@@ -230,6 +258,8 @@
 				5197A6F82B253CB30014D399 /* AddRatingView.swift in Sources */,
 				5197A6F62B253CA40014D399 /* BlogView.swift in Sources */,
 				5197A7022B26E7240014D399 /* AddRatingSecondView.swift in Sources */,
+				51C6FC0D2B2A2A2D001F8163 /* LoginView.swift in Sources */,
+				51C6FC0B2B2A2A1B001F8163 /* SceneDelegate.swift in Sources */,
 				5197A7042B2791660014D399 /* StarRatingPickerView.swift in Sources */,
 				5197A6FA2B253CC00014D399 /* ForumView.swift in Sources */,
 				5197A6EB2B1BCAB10014D399 /* RateMyDorm.xcdatamodeld in Sources */,
@@ -359,6 +389,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RateMyDorm/RateMyDormDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RateMyDorm/Preview Content\"";
@@ -442,6 +473,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		51C6FC0E2B2A2C1D001F8163 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -454,6 +493,31 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 51C6FBE82B2A01B2001F8163 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		51C6FC0F2B2A2C1D001F8163 /* FacebookAEM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51C6FC0E2B2A2C1D001F8163 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookAEM;
+		};
+		51C6FC112B2A2C1D001F8163 /* FacebookBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51C6FC0E2B2A2C1D001F8163 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		51C6FC132B2A2C1D001F8163 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51C6FC0E2B2A2C1D001F8163 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		51C6FC152B2A2C1D001F8163 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51C6FC0E2B2A2C1D001F8163 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
+		};
+		51C6FC172B2A2C1D001F8163 /* FacebookShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51C6FC0E2B2A2C1D001F8163 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookShare;
 		};
 /* End XCSwiftPackageProductDependency section */
 
