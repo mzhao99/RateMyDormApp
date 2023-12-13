@@ -142,7 +142,8 @@ struct HomeView: View {
             .background(.white)
             .scrollContentBackground(.hidden)
             .searchable(text: $searchText, prompt: "Search Dorm")
-            .navigationTitle("Northeastern Dorms")
+            .navigationBarTitle("Northeastern Dorms", displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

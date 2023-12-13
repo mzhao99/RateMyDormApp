@@ -38,7 +38,7 @@ struct AddRatingSuccessView: View {
 
                 // back to home page
                 NavigationLink(
-                    destination: HomeNavView().navigationBarBackButtonHidden(true),
+                    destination: HomeNavView(),
                     label: {
                         Text("Back to home")
                             .font(.system(size: 20))
