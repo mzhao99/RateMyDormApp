@@ -15,7 +15,7 @@ struct HomeNavView: View {
     @State private var universityName = "Northeastern University" // change to binding var later
     
     let icons = ["house", "book", "plus", "quote.bubble", "person"]
-    let captions = ["Home", "Blog", "Add Review", "Forum", "Me"]
+    let captions = ["Home", "Resources", "Add Review", "Forum", "Me"]
     
     var body: some View {
         VStack {

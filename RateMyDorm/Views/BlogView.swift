@@ -41,7 +41,7 @@ struct BlogView: View {
                     }
                 }
             }
-            .navigationTitle("Blogs")
+            .navigationTitle("Resources")   // decide to change from blog to resources
             .fullScreenCover(isPresented: $isSafariViewPresented) {
                 SafariView(url: (selectedBlogURL ?? URL(string: "https://www.google.com"))!)
                     .ignoresSafeArea()
