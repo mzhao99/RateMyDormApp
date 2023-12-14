@@ -38,6 +38,7 @@
 		51C6FC142B2A2C1D001F8163 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC132B2A2C1D001F8163 /* FacebookCore */; };
 		51C6FC162B2A2C1D001F8163 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC152B2A2C1D001F8163 /* FacebookLogin */; };
 		51C6FC182B2A2C1D001F8163 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FC172B2A2C1D001F8163 /* FacebookShare */; };
+		51D295302B2AB1A500E97C6D /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 51D2952F2B2AB1A500E97C6D /* FirebaseFirestoreSwift */; };
 		CCA117402B2A6EC6002B6B55 /* StoreUniversity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */; };
 		CCA117432B2A721C002B6B55 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CCA117422B2A721C002B6B55 /* FirebaseDatabase */; };
 		CCEAC4442B2A37FE00F62C30 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAC4432B2A37FE00F62C30 /* CreateUserView.swift */; };
@@ -89,6 +90,7 @@
 				51C6FBEC2B2A01B3001F8163 /* FirebaseFirestore in Frameworks */,
 				CCA117432B2A721C002B6B55 /* FirebaseDatabase in Frameworks */,
 				51C6FC182B2A2C1D001F8163 /* FacebookShare in Frameworks */,
+				51D295302B2AB1A500E97C6D /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +205,7 @@
 				51C6FC152B2A2C1D001F8163 /* FacebookLogin */,
 				51C6FC172B2A2C1D001F8163 /* FacebookShare */,
 				CCA117422B2A721C002B6B55 /* FirebaseDatabase */,
+				51D2952F2B2AB1A500E97C6D /* FirebaseFirestoreSwift */,
 			);
 			productName = RateMyDorm;
 			productReference = 5197A6DB2B1BCAAA0014D399 /* RateMyDorm.app */;
@@ -543,6 +546,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 51C6FC0E2B2A2C1D001F8163 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookShare;
+		};
+		51D2952F2B2AB1A500E97C6D /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51C6FBE82B2A01B2001F8163 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 		CCA117422B2A721C002B6B55 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
