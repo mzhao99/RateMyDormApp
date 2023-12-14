@@ -7,60 +7,64 @@
 
 import SwiftUI
 import SafariServices
+import FirebaseFirestoreSwift
+import FirebaseFirestore
+
+struct BlogPost: Identifiable, Codable {
+    @DocumentID var id: String?
+    var title: String
+    var description: String
+    var link: String
+    var coverPhoto: String
+    var universityName: String
+}
 
 struct BlogView: View {
     @State private var selectedBlogURL: URL?
     @State private var isSafariViewPresented = false
-    
-    private let blogData: [[String: Any]] = [
-        [
-            "title": "First Blog",
-            "author": "John Doe",
-            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        ],
-        [
-            "title": "Second Blog",
-            "author": "Jane Doe",
-            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        ],
-        [
-            "title": "Third Blog",
-            "author": "John Doe",
-            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        ],
-        [
-            "title": "Fourth Blog",
-            "author": "John Doe",
-            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        ]
-    ]
-    
-    private let urls: [URL] = [URL(string: "https://www.example.com/blog1")!, URL(string: "https://www.example.com/blog1")!, URL(string: "https://www.example.com/blog1")!, URL(string: "https://www.example.com/blog1")!]
-    
+    @State private var posts = [BlogPost]()
+    @Binding var universityName: String
+
     var body: some View {
         NavigationStack {
             ScrollView{
                 VStack {
-                    ForEach(0..<blogData.count, id: \.self) { num in
-                        BlogCardView(title: .constant(blogData[num]["title"] as! String),
-                                     author: .constant(blogData[num]["author"] as! String),
-                                     description: .constant(blogData[num]["description"] as! String),
-                                     photo: .constant(nil))
+                    ForEach(posts) { post in
+                        BlogCardView(title: .constant(post.title),
+                                     description: .constant(post.description),
+                                     photo: .constant(post.coverPhoto))
                         .padding(.vertical, 5)
                         .onTapGesture {
-                            selectedBlogURL = urls[num]
+                            selectedBlogURL = URL(string: post.link)
                             isSafariViewPresented = true
-                            
                         }
                     }
                 }
             }
-            .navigationTitle("Blogs")
+            .navigationTitle("Resources")   // decide to change from blog to resources
             .fullScreenCover(isPresented: $isSafariViewPresented) {
-                SafariView(url: URL(string: "https://google.com")!)
+                SafariView(url: (selectedBlogURL ?? URL(string: "https://www.google.com"))!)
                     .ignoresSafeArea()
             }
         }
+        .onAppear {
+            fetchData()
+        }
+    }
+    
+    func fetchData() {
+        let db = Firestore.firestore()
+        db.collection("blog")
+            .whereField("universityName", isEqualTo: universityName)
+            .addSnapshotListener { querySnapshot, error in
+                guard let documents = querySnapshot?.documents else {
+                    print("Error fetching documents: \(error!)")
+                    return
+                }
+                self.posts = documents.compactMap { queryDocumentSnapshot -> BlogPost? in
+                    return try? queryDocumentSnapshot.data(as: BlogPost.self)
+                }
+            }
     }
 }
 
@@ -78,6 +82,6 @@ struct SafariView: UIViewControllerRepresentable {
 
 struct BlogView_Previews: PreviewProvider {
     static var previews: some View {
-        BlogView()
+        BlogView(universityName: .constant("Boston University"))
     }
 }

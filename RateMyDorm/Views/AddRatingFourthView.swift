@@ -109,18 +109,20 @@ struct AddRatingFourthView: View {
                         })
                         Spacer()
                         // next page
-                        NavigationLink(
-                            destination: AddRatingFinalView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, selectedClassYears: $selectedClassYears, selectedRoomTypes: $selectedRoomTypes),
-                            isActive: $showFinalView,
-                            label: {
-                                Image(systemName: "arrow.right")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(.teal)
-                                    .cornerRadius(30)
-                            }
-                        )
+                        if selectedClassYears.filter({$0}).count > 0 && selectedRoomTypes.filter({$0}).count > 0 {
+                            NavigationLink(
+                                destination: AddRatingFinalView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, selectedClassYears: $selectedClassYears, selectedRoomTypes: $selectedRoomTypes),
+                                isActive: $showFinalView,
+                                label: {
+                                    Image(systemName: "arrow.right")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.white)
+                                        .frame(width: 50, height: 50)
+                                        .background(.teal)
+                                        .cornerRadius(30)
+                                }
+                            )
+                        }
                     }
                 }
                 .padding()
