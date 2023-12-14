@@ -14,9 +14,12 @@ struct AddRatingThirdView: View {
     @Binding var buildingRating: Int
     @Binding var bathroomRating: Int
     @Binding var locationRating: Int
+    
     @State private var comment: String = ""
+    @State private var commentWordCount = 0
     @State var photo: Data?
     @State private var photosPickerItem: PhotosPickerItem?
+    @State private var showErrorMessage = false
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -39,7 +42,7 @@ struct AddRatingThirdView: View {
                                 .padding(.bottom, 1)
                                 .padding(.top, 5)
                             
-                            Text("Share the pros, cons, and what to expect when living at \(selectedDorm)")
+                            Text("Share the pros, cons, and what to expect when living at \(selectedDorm) (at least 20 words)")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                             
@@ -51,6 +54,20 @@ struct AddRatingThirdView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(.gray.opacity(0.2), lineWidth: 2)
                                 )
+                                .onChange(of: comment) { newComment in
+                                    countWords()
+                                    if (commentWordCount < 20) {
+                                        showErrorMessage = true
+                                    } else {
+                                        showErrorMessage = false
+                                    }
+                                }
+                            
+                            if (showErrorMessage) {
+                                Text("Comment must be at least 20 words")
+                                    .font(.subheadline)
+                                    .foregroundColor(.red)
+                            }
                         }
                         
                         Group {
@@ -60,7 +77,7 @@ struct AddRatingThirdView: View {
                                 .padding(.bottom, 1)
                                 .padding(.top)
                             
-                            Text("Show us what your dorm was like. Photos help prospective students more than words do!")
+                            Text("Show us what your dorm was like! (Optional)")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                             
@@ -114,17 +131,19 @@ struct AddRatingThirdView: View {
                         })
                         Spacer()
                         // next page
-                        NavigationLink(
-                            destination: AddRatingFourthView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo),
-                            label: {
-                                Image(systemName: "arrow.right")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(.teal)
-                                    .cornerRadius(30)
-                            }
-                        )
+                        if (commentWordCount >= 20) {
+                            NavigationLink(
+                                destination: AddRatingFourthView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo),
+                                label: {
+                                    Image(systemName: "arrow.right")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.white)
+                                        .frame(width: 50, height: 50)
+                                        .background(.teal)
+                                        .cornerRadius(30)
+                                }
+                            )
+                        }
                     }
                 }
                 .padding()
@@ -133,6 +152,12 @@ struct AddRatingThirdView: View {
             }
         }
         .navigationBarHidden(true)
+    }
+    
+    func countWords() {
+        // Split the comment into words and count them
+        let words = comment.split { $0.isWhitespace || $0.isNewline }
+        commentWordCount = words.count
     }
 }
 
