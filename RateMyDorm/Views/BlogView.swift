@@ -23,6 +23,7 @@ struct BlogView: View {
     @State private var selectedBlogURL: URL?
     @State private var isSafariViewPresented = false
     @State private var posts = [BlogPost]()
+    @Binding var universityName: String
 
     var body: some View {
         NavigationStack {
@@ -53,15 +54,17 @@ struct BlogView: View {
     
     func fetchData() {
         let db = Firestore.firestore()
-        db.collection("blog").addSnapshotListener { querySnapshot, error in
-          guard let documents = querySnapshot?.documents else {
-            print("Error fetching documents: \(error!)")
-            return
-          }
-          self.posts = documents.compactMap { queryDocumentSnapshot -> BlogPost? in
-            return try? queryDocumentSnapshot.data(as: BlogPost.self)
-          }
-        }
+        db.collection("blog")
+            .whereField("universityName", isEqualTo: universityName)
+            .addSnapshotListener { querySnapshot, error in
+                guard let documents = querySnapshot?.documents else {
+                    print("Error fetching documents: \(error!)")
+                    return
+                }
+                self.posts = documents.compactMap { queryDocumentSnapshot -> BlogPost? in
+                    return try? queryDocumentSnapshot.data(as: BlogPost.self)
+                }
+            }
     }
 }
 
@@ -79,6 +82,6 @@ struct SafariView: UIViewControllerRepresentable {
 
 struct BlogView_Previews: PreviewProvider {
     static var previews: some View {
-        BlogView()
+        BlogView(universityName: .constant("Boston University"))
     }
 }

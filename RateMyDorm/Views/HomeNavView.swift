@@ -12,6 +12,8 @@ struct HomeNavView: View {
     @State private var selectedIndex = 0
     @State private var showAddRating = false
     
+    @State private var universityName = "Northeastern University" // change to binding var later
+    
     let icons = ["house", "book", "plus", "quote.bubble", "person"]
     let captions = ["Home", "Blog", "Add Review", "Forum", "Me"]
     
@@ -25,7 +27,7 @@ struct HomeNavView: View {
                 case 0:
                     HomeView()
                 case 1:
-                    BlogView()
+                    BlogView(universityName: $universityName)
                 case 3:
                     ForumView()
                 case 4:
