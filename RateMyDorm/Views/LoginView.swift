@@ -27,7 +27,6 @@ class UserViewModel: ObservableObject {
 
 struct UserModel: Identifiable, Codable {
     @DocumentID var id: String?
-    var uid: String
     var username: String
     var email: String
     var forumIds: [String]
@@ -41,10 +40,8 @@ struct LoginView: View {
     @State private var username = ""
     @State private var showErrorMessage = false
     @State private var errorMessage = ""
+    @State private var loginSuccessful = false
     @EnvironmentObject var userViewModel: UserViewModel
-    
-    @State private var shouldNavigate = false
-    @State private var shouldNavigateToCreate = false
     
     var body: some View {
         NavigationView {
@@ -60,6 +57,7 @@ struct LoginView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
                     )
+                    .autocapitalization(.none)
                 
                 SecureField("Password", text: $password)
                     .padding()
@@ -67,6 +65,7 @@ struct LoginView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
                     )
+                    .autocapitalization(.none)
                 
                 if (showErrorMessage) {
                     Text(errorMessage)
@@ -102,6 +101,14 @@ struct LoginView: View {
                     .frame(width: 200, height: 28)
                     .padding()
                 
+                NavigationLink(
+                    destination: HomeNavView().navigationBarHidden(true),
+                    isActive: $loginSuccessful,
+                    label: { EmptyView() }
+                )
+                .hidden()
+                
+                
                 Spacer()
             }
             .padding()
@@ -128,7 +135,7 @@ struct LoginView: View {
     }
     
     func fetchUserData(userId: String) {
-        Firestore.firestore().collection("users").document(userId).getDocument { document, error in
+        Firestore.firestore().collection("user").document(userId).getDocument { document, error in
             if let error = error {
                 // Log the error or update the UI to inform the user
                 print("Error fetching user data: \(error.localizedDescription)")
@@ -137,24 +144,13 @@ struct LoginView: View {
                 return
             }
             
-            if let document = document, document.exists, let data = document.data() {
-                let userModel = UserModel(
-                    uid: userId,
-                    username: data["username"] as? String ?? "",
-                    email: data["email"] as? String ?? "",
-                    forumIds: data["forumIds"] as? [String] ?? [],
-                    reviewIds: data["reviewIds"] as? [String] ?? [],
-                    universityName: data["universityName"] as? String ?? ""
-                )
-                self.userViewModel.currentUser = userModel
-                self.shouldNavigate = true
-                
-            } else {
-                // Data not found for the given user ID
-                print("No data found for user ID: \(userId)")
-                self.errorMessage = "No user data found. Please ensure your account is set up correctly."
-                self.showErrorMessage = true
+            if let user = try? document?.data(as: UserModel.self) {
+                // Update the userViewModel with the retrieved user data
+                userViewModel.currentUser = user
+                print("\(user.email)")
             }
+            
+            loginSuccessful = true
         }
     }
     
