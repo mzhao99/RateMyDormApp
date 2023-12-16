@@ -159,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				51C6FC0C2B2A2A2A001F8163 /* LoginView.swift */,
+				CCEAC4432B2A37FE00F62C30 /* CreateUserView.swift */,
 				5197A6F32B2535D50014D399 /* HomeNavView.swift */,
 				5197A6FD2B253DAB0014D399 /* HomeView.swift */,
 				51D295392B2D3CC900E97C6D /* DormDetailView.swift */,
@@ -177,7 +178,6 @@
 				5197A6FB2B253CD00014D399 /* UserProfileView.swift */,
 				51C50F0D2B2D411200926B28 /* StarRatingView.swift */,
 				5197A7032B2791660014D399 /* StarRatingPickerView.swift */,
-				CCEAC4432B2A37FE00F62C30 /* CreateUserView.swift */,
 				CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */,
 				CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */,
 				CCDF8B142B2D07D9004CE463 /* ReviewListView.swift */,

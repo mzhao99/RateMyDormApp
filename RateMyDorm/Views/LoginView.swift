@@ -15,7 +15,7 @@ struct FacebookLoginButton: UIViewRepresentable {
         loginButton.permissions = ["public_profile", "email"]
         return loginButton
     }
-
+    
     func updateUIView(_ uiView: FBLoginButton, context: Context) {}
 }
 
@@ -33,83 +33,76 @@ struct UserModel {
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var username = ""  // Assuming you have a field for username during registration
+    @State private var username = ""
     @State private var showErrorMessage = false
     @State private var errorMessage = ""
     @EnvironmentObject var userViewModel: UserViewModel
-
+    
     @State private var shouldNavigate = false
-
-
+    @State private var shouldNavigateToCreate = false
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            Text("RateMyDorm")
-                .font(.largeTitle)
-                .foregroundColor(Color.teal)
-                .padding(.vertical, 10)
-
-            TextField("Email", text: $email)
-                .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
-                )
-
-            SecureField("Password", text: $password)
-                .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
-                )
-            
-            if (showErrorMessage) {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-            }
-            
-            Button(action: {
-                login()
-            }) {
-                Text("Log In")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .frame(height: 50)
-                    .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .bold))
-                    .background(Color.teal)
-                    .cornerRadius(20)
-            }
-            .padding(.top, 10)
-
-            Button(action: {
-                register()
-            }) {
-                Text("Create an account ")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .frame(height: 50)
+        NavigationView {
+            VStack(alignment: .leading, spacing: 15) {
+                Text("RateMyDorm")
+                    .font(.largeTitle)
                     .foregroundColor(Color.teal)
-                    .font(.system(size: 20, weight: .bold))
+                    .padding(.vertical, 10)
+                
+                TextField("Email", text: $email)
+                    .padding()
                     .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.teal, lineWidth: 2)
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
                     )
+                
+                SecureField("Password", text: $password)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
+                    )
+                
+                if (showErrorMessage) {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                }
+                
+                Button(action: {
+                    login()
+                }) {
+                    Text("Log In")
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .frame(height: 50)
+                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: .bold))
+                        .background(Color.teal)
+                        .cornerRadius(20)
+                }
+                .padding(.top, 10)
+
+                NavigationLink(destination: CreateUserView()) {
+                    Text("Create an account")
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .frame(height: 50)
+                        .foregroundColor(Color.teal)
+                        .font(.system(size: 20, weight: .bold))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.teal, lineWidth: 2)
+                        )
+                }
+                
+                FacebookLoginButton()
+                    .frame(width: 200, height: 28)
+                    .padding()
+                
+                Spacer()
             }
-            
-            NavigationLink(
-                                destination: HomeNavView(),
-                                isActive: $shouldNavigate
-                            ) {
-                                EmptyView()
-                            }
-            
-            FacebookLoginButton()
-                .frame(width: 200, height: 28)
-                .padding()
-
-            Spacer()
+            .padding()
         }
-        .padding()
     }
-
+    
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if error != nil {
@@ -122,36 +115,12 @@ struct LoginView: View {
                 }
                 showErrorMessage = true
                 return
-            } 
-            guard let user = result?.user else { return}
+            }
+            guard let user = result?.user else { return }
             
             fetchUserData(userId: user.uid)
-            
         }
     }
-
-    func register() {
-            Auth.auth().createUser(withEmail: email, password: password) { result, error in
-                if let error = error {
-                    // Handle error...
-                    self.errorMessage = error.localizedDescription
-                    self.showErrorMessage = true
-                    return
-                }
-
-                guard let user = result?.user else { return }
-
-                let userData: [String: Any] = [
-                    "username": username,
-                    "email": user.email ?? ""
-                ]
-                Firestore.firestore().collection("users").document(user.uid).setData(userData)
-
-                let userModel = UserModel(id: user.uid, username: username, email: user.email ?? "")
-                self.userViewModel.currentUser = userModel
-            }
-        }
-
     
     func fetchUserData(userId: String) {
         Firestore.firestore().collection("users").document(userId).getDocument { document, error in
@@ -162,7 +131,7 @@ struct LoginView: View {
                 self.showErrorMessage = true
                 return
             }
-
+            
             if let document = document, document.exists, let data = document.data() {
                 let userModel = UserModel(
                     id: userId,
@@ -180,7 +149,7 @@ struct LoginView: View {
             }
         }
     }
-
+    
 }
 
 struct LoginView_Previews: PreviewProvider {
@@ -188,7 +157,3 @@ struct LoginView_Previews: PreviewProvider {
         LoginView()
     }
 }
-//#Preview {
-//    LoginView()
-//}
-
