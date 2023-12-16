@@ -26,6 +26,7 @@
 		5197A70A2B28D0240014D399 /* AddRatingFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7092B28D0240014D399 /* AddRatingFinalView.swift */; };
 		5197A70E2B2926F60014D399 /* AddRatingSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */; };
 		5197A7102B2961450014D399 /* BlogCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A70F2B2961440014D399 /* BlogCardView.swift */; };
+		51C50F0E2B2D411200926B28 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C50F0D2B2D411200926B28 /* StarRatingView.swift */; };
 		51C6FBEA2B2A01B3001F8163 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FBE92B2A01B3001F8163 /* FirebaseAuth */; };
 		51C6FBEC2B2A01B3001F8163 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 51C6FBEB2B2A01B3001F8163 /* FirebaseFirestore */; };
 		51C6FBEE2B2A0263001F8163 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51C6FBED2B2A0263001F8163 /* GoogleService-Info.plist */; };
@@ -72,6 +73,7 @@
 		5197A7092B28D0240014D399 /* AddRatingFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingFinalView.swift; sourceTree = "<group>"; };
 		5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingSuccessView.swift; sourceTree = "<group>"; };
 		5197A70F2B2961440014D399 /* BlogCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogCardView.swift; sourceTree = "<group>"; };
+		51C50F0D2B2D411200926B28 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		51C6FBED2B2A0263001F8163 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		51C6FC082B2A2A1B001F8163 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51C6FC092B2A2A1B001F8163 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -171,13 +173,14 @@
 				5197A7092B28D0240014D399 /* AddRatingFinalView.swift */,
 				5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */,
 				5197A6F92B253CC00014D399 /* ForumView.swift */,
+				CCCCB0D02B2D313B00AD2971 /* ForumHomeView.swift */,
 				5197A6FB2B253CD00014D399 /* UserProfileView.swift */,
+				51C50F0D2B2D411200926B28 /* StarRatingView.swift */,
 				5197A7032B2791660014D399 /* StarRatingPickerView.swift */,
 				CCEAC4432B2A37FE00F62C30 /* CreateUserView.swift */,
 				CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */,
 				CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */,
 				CCDF8B142B2D07D9004CE463 /* ReviewListView.swift */,
-				CCCCB0D02B2D313B00AD2971 /* ForumHomeView.swift */,
 				CCCCB0D22B2D326500AD2971 /* PostView.swift */,
 				CCCCB0D42B2D386E00AD2971 /* CommentView.swift */,
 			);
@@ -284,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51C50F0E2B2D411200926B28 /* StarRatingView.swift in Sources */,
 				CCEAC4442B2A37FE00F62C30 /* CreateUserView.swift in Sources */,
 				5197A6E82B1BCAB10014D399 /* Persistence.swift in Sources */,
 				5197A6FC2B253CD00014D399 /* UserProfileView.swift in Sources */,
@@ -453,7 +457,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -483,7 +487,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

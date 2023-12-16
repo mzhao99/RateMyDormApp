@@ -117,15 +117,15 @@ struct ReviewCell: View {
 }
 
 // Placeholder for StarRatingView
-struct StarRatingView: View {
-    var rating: Double
-    var maxRating: Int
-    
-    var body: some View {
-        Text("★ \(rating)/\(maxRating)")
-            .foregroundColor(.yellow)
-    }
-}
+//struct StarRatingView: View {
+//    var rating: Double
+//    var maxRating: Int
+//
+//    var body: some View {
+//        Text("★ \(rating)/\(maxRating)")
+//            .foregroundColor(.yellow)
+//    }
+//}
 
 struct ReviewListView: View {
     @ObservedObject var viewModel = ReviewListViewModel()
