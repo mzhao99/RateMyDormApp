@@ -9,104 +9,67 @@ import SwiftUI
 
 import FirebaseFirestore
 
-class CommentViewModel: ObservableObject {
-    @Published var forums: [Forum] = []
-    @Published var userComments: [Forum] = []
-    private var db = Firestore.firestore()
-    @EnvironmentObject var userViewModel: UserViewModel
-
-    // Fetch all forums
-    func fetchForums() {
-        db.collection("forum").getDocuments { (querySnapshot, err) in
-            // handle fetching all forums
-            if let documents = querySnapshot?.documents {
-                self.forums = documents.compactMap { try? $0.data(as: Forum.self) }
-            }
-        }
-    }
-
-    // Fetch comments by current user
-    func fetchUserComments() {
-        guard let userId = userViewModel.currentUser?.id else { return }
-
-        db.collection("forum")
-          .whereField("userId", isEqualTo: userId)
-          .whereField("parentId", isNotEqualTo: "none")
-          .getDocuments { (querySnapshot, err) in
-              if let documents = querySnapshot?.documents {
-                  self.userComments = documents.compactMap { try? $0.data(as: Forum.self) }
-              }
-          }
-    }
-    func deleteComment(comment: Forum, completion: @escaping (Bool) -> Void) {
-            guard let commentId = comment.id, let userId = userViewModel.currentUser?.id else {
-                completion(false)
-                return
-            }
-
-            let userDocument = db.collection("users").document(userId)
-            let commentDocument = db.collection("forums").document(commentId)
-
-            // Begin a batch write to ensure atomicity
-            let batch = db.batch()
-
-            // Delete the comment document
-            batch.deleteDocument(commentDocument)
-
-            // Update the user document to remove the commentId from forumIds
-            batch.updateData(["forumIds": FieldValue.arrayRemove([commentId])], forDocument: userDocument)
-
-            // Commit the batch write
-            batch.commit { err in
-                if let err = err {
-                    print("Error writing batch \(err)")
-                    completion(false)
-                } else {
-                    print("Comment successfully deleted.")
-                    self.fetchUserComments() // Refresh the comments list after deletion
-                    completion(true)
-                }
-            }
-        }
-}
-
+import SwiftUI
+import FirebaseFirestore
 
 struct CommentView: View {
-    @ObservedObject var viewModel: CommentViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    @State private var comments: [ForumModel] = []
 
+    init(comments: [ForumModel] = []) {
+            _comments = State(initialValue: comments)
+        }
+    
     var body: some View {
-        List {
-            ForEach(viewModel.userComments) { comment in
-                VStack(alignment: .leading) {
-                    if let parentForum = viewModel.forums.first(where: { $0.id == comment.parentId }) {
-                        Text(parentForum.title).font(.headline)
-                        Text("Posted by \(parentForum.username)").font(.subheadline)
-                        Text(parentForum.description)
-                    }
-                    Divider()
-                    Text(comment.description)
-
-                    Button("Delete Comment") {
-                        viewModel.deleteComment(comment: comment) { success in
-                            if success {
-                                print("Comment deleted successfully.")
-                            } else {
-                                print("Failed to delete comment.")
-                            }
-                        }
-                    }
-                    .foregroundColor(.red)
+        List(comments) { comment in
+            VStack(alignment: .leading) {
+                Text("Post: \(comment.title ?? "Unknown")").font(.headline)// Placeholder for post title
+                // Fetch and display the post details associated with the comment
+                // This is simplified for demonstration purposes
+                HStack {
+                    Text(comment.username).font(.caption)
+                    Spacer()
+                    Text("\(comment.timeStamp.formatted())").font(.caption)
                 }
+                Divider()
+                Text(comment.description).font(.body)
             }
         }
         .onAppear {
-            viewModel.fetchUserComments()
-            viewModel.fetchForums()
+            loadUserComments()
+        }
+    }
+
+    private func loadUserComments() {
+        guard let forumIds = userViewModel.currentUser?.forumIds else { return }
+
+        let db = Firestore.firestore()
+        for forumId in forumIds {
+            db.collection("forum").document(forumId).getDocument { document, error in
+                guard let document = document, document.exists else {
+                    print("Error fetching document: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                
+                do {
+                    let comment = try document.data(as: ForumModel.self)
+                    if comment.parentId != "none" {
+                        DispatchQueue.main.async {
+                            self.comments.append(comment)
+                        }
+                    }
+                } catch {
+                    print("Error decoding comment: \(error)")
+                }
+            }
         }
     }
 }
 
+struct CommentView_Previews: PreviewProvider {
+    static var previews: some View {
+        CommentView(comments: SampleData.comments)
+            .environmentObject(MockUserViewModel())
+    }
+}
 
-//#Preview {
-//    CommentView()
-//}

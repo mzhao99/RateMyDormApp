@@ -46,7 +46,7 @@
 		CCCCB0D12B2D313B00AD2971 /* ForumHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCCB0D02B2D313B00AD2971 /* ForumHomeView.swift */; };
 		CCCCB0D32B2D326500AD2971 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCCB0D22B2D326500AD2971 /* PostView.swift */; };
 		CCCCB0D52B2D386E00AD2971 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCCB0D42B2D386E00AD2971 /* CommentView.swift */; };
-		CCDF8B152B2D07D9004CE463 /* ReviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDF8B142B2D07D9004CE463 /* ReviewListView.swift */; };
+		CCDF8B152B2D07D9004CE463 /* ReviewsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDF8B142B2D07D9004CE463 /* ReviewsListView.swift */; };
 		CCEAC4442B2A37FE00F62C30 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAC4432B2A37FE00F62C30 /* CreateUserView.swift */; };
 		CCEAC4462B2A4C2400F62C30 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
@@ -84,7 +84,7 @@
 		CCCCB0D02B2D313B00AD2971 /* ForumHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumHomeView.swift; sourceTree = "<group>"; };
 		CCCCB0D22B2D326500AD2971 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		CCCCB0D42B2D386E00AD2971 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
-		CCDF8B142B2D07D9004CE463 /* ReviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListView.swift; sourceTree = "<group>"; };
+		CCDF8B142B2D07D9004CE463 /* ReviewsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsListView.swift; sourceTree = "<group>"; };
 		CCEAC4432B2A37FE00F62C30 /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,7 +177,7 @@
 				5197A7032B2791660014D399 /* StarRatingPickerView.swift */,
 				CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */,
 				CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */,
-				CCDF8B142B2D07D9004CE463 /* ReviewListView.swift */,
+				CCDF8B142B2D07D9004CE463 /* ReviewsListView.swift */,
 				CCCCB0D22B2D326500AD2971 /* PostView.swift */,
 				CCCCB0D42B2D386E00AD2971 /* CommentView.swift */,
 			);
@@ -307,7 +307,7 @@
 				51C6FC0D2B2A2A2D001F8163 /* LoginView.swift in Sources */,
 				CCEAC4462B2A4C2400F62C30 /* ProfileView.swift in Sources */,
 				51C6FC0B2B2A2A1B001F8163 /* SceneDelegate.swift in Sources */,
-				CCDF8B152B2D07D9004CE463 /* ReviewListView.swift in Sources */,
+				CCDF8B152B2D07D9004CE463 /* ReviewsListView.swift in Sources */,
 				5197A7042B2791660014D399 /* StarRatingPickerView.swift in Sources */,
 				5197A6FA2B253CC00014D399 /* ForumView.swift in Sources */,
 				5197A6EB2B1BCAB10014D399 /* RateMyDorm.xcdatamodeld in Sources */,

@@ -11,8 +11,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var selectedTab = "Rating"
-    @ObservedObject var postViewModel = PostViewModel()
-    @ObservedObject var commentViewModel = CommentViewModel()
+    @EnvironmentObject var userViewModel: UserViewModel
+    
     
     var body: some View {
         VStack {
@@ -22,9 +22,9 @@ struct ProfileView: View {
                     Text("Welcome back,")
                         .font(.headline)
                         .foregroundColor(.gray)
-                    Text("Shiyun")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
+                    Text(userViewModel.currentUser?.username ?? "Buddy")
+                                            .font(.largeTitle)
+                                            .fontWeight(.bold)
                 }
                 Spacer()
             }
@@ -40,9 +40,9 @@ struct ProfileView: View {
             
             // Content below tabs
             TabView(selection: $selectedTab) {
-                ReviewListView().tag("Rating")
-                PostView(viewModel: postViewModel).tag("Post")
-                CommentView(viewModel: commentViewModel).tag("Comment")
+                ReviewsListView().tag("Rating")
+                PostView().tag("Post")
+                CommentView().tag("Comment")
             }
             
             Spacer()
@@ -77,6 +77,6 @@ struct TabButton: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
+            .environmentObject(UserViewModel())  // Add this line
     }
 }
-

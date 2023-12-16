@@ -23,6 +23,37 @@ struct FacebookLoginButton: UIViewRepresentable {
 
 class UserViewModel: ObservableObject {
     @Published var currentUser: UserModel?
+    @Published var reviews: [ReviewModel] = []
+
+        private var db = Firestore.firestore()
+
+        // Add this method to your existing UserViewModel
+    func fetchUserReviews() {
+        guard let reviewIds = currentUser?.reviewIds, !reviewIds.isEmpty else {
+            // Handle empty reviewIds
+            return
+        }
+        
+        // Existing logic to clear previous reviews
+        self.reviews = []
+        
+        for reviewId in reviewIds {
+            db.collection("review").document(reviewId).getDocument { (document, error) in
+                if let document = document, document.exists {
+                    do {
+                        let review = try document.data(as: ReviewModel.self)
+                        DispatchQueue.main.async {
+                            self.reviews.append(review)
+                        }
+                    } catch {
+                        print("Error decoding review: \(error)")
+                    }
+                } else {
+                    print("Document does not exist")
+                }
+            }
+        }
+    }
 }
 
 struct UserModel: Identifiable, Codable, Equatable {
@@ -147,7 +178,7 @@ struct LoginView: View {
                 // Update the userViewModel with the retrieved user data
                 userViewModel.currentUser = user
             }
-//            print("email: \(userViewModel.cuser2passwordurrentUser?.email ?? "N/A")" )
+//
             loginSuccessful = true
         }
     }
