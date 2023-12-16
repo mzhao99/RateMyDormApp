@@ -6,18 +6,24 @@
 //
 import SwiftUI
 import Firebase
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct Review: Identifiable, Codable {
-    let id: String
-    let dormName: String
-    let roomRating: Int
-    let buildingRating: Int
-    let bathroomRating: Int
-    let locationRating: Int
-    let comment: String
-    let overallRating: Int
-    let photo: String?
-    // Add other attributes as necessary
+    @DocumentID var id: String?
+    var dormName: String
+    var overallRating: Int
+    var roomRating: Int
+    var buildingRating: Int
+    var bathroomRating: Int
+    var locationRating: Int
+    var classYears: [String]
+    var roomTypes: [String]
+    var comment: String
+    var photo: String?
+    var universityName: String
+    var userId: String
+    var timeStamp: Timestamp
 }
 
 class ReviewListViewModel: ObservableObject {
@@ -45,7 +51,7 @@ class ReviewListViewModel: ObservableObject {
         }
     
     func deleteReview(_ review: Review) {
-        db.collection("review").document(review.id).delete { err in
+        db.collection("review").document(review.id!).delete { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {
