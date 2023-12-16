@@ -8,6 +8,8 @@
 import SwiftUI
 import FBSDKLoginKit
 import Firebase
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct FacebookLoginButton: UIViewRepresentable {
     func makeUIView(context: Context) -> FBLoginButton {
@@ -23,11 +25,14 @@ class UserViewModel: ObservableObject {
     @Published var currentUser: UserModel?
 }
 
-struct UserModel {
-    var id: String
+struct UserModel: Identifiable, Codable {
+    @DocumentID var id: String?
+    var uid: String
     var username: String
     var email: String
-    // Add other user properties like username and university if needed
+    var forumIds: [String]
+    var reviewIds: [String]
+    var universityName: String
 }
 
 struct LoginView: View {
@@ -134,9 +139,12 @@ struct LoginView: View {
             
             if let document = document, document.exists, let data = document.data() {
                 let userModel = UserModel(
-                    id: userId,
+                    uid: userId,
                     username: data["username"] as? String ?? "",
-                    email: data["email"] as? String ?? ""
+                    email: data["email"] as? String ?? "",
+                    forumIds: data["forumIds"] as? [String] ?? [],
+                    reviewIds: data["reviewIds"] as? [String] ?? [],
+                    universityName: data["universityName"] as? String ?? ""
                 )
                 self.userViewModel.currentUser = userModel
                 self.shouldNavigate = true
