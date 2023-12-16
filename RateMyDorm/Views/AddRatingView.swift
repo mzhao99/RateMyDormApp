@@ -118,7 +118,7 @@ struct AddRatingView: View {
                 .padding(.leading, 30)
                 .padding(.trailing, 30)
                 .navigationDestination(isPresented: $showSecondView) {
-                    AddRatingSecondView(showSecondView: $showSecondView, selectedDorm: $selected)
+                    AddRatingSecondView(showSecondView: $showSecondView, selectedDorm: $selected, universityName: $universityName)
                 }
             }
             .onAppear {

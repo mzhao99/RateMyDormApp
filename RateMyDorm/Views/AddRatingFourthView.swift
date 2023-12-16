@@ -15,6 +15,7 @@ struct AddRatingFourthView: View {
     @Binding var locationRating: Int
     @Binding var comment: String
     @Binding var photo: Data?
+    @Binding var universityName: String
     
     @State private var showFinalView = false
     @State private var classYears = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate Student"]
@@ -111,7 +112,7 @@ struct AddRatingFourthView: View {
                         // next page
                         if selectedClassYears.filter({$0}).count > 0 && selectedRoomTypes.filter({$0}).count > 0 {
                             NavigationLink(
-                                destination: AddRatingFinalView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, selectedClassYears: $selectedClassYears, selectedRoomTypes: $selectedRoomTypes),
+                                destination: AddRatingFinalView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, selectedClassYears: $selectedClassYears, selectedRoomTypes: $selectedRoomTypes, universityName: $universityName),
                                 isActive: $showFinalView,
                                 label: {
                                     Image(systemName: "arrow.right")
@@ -136,6 +137,6 @@ struct AddRatingFourthView: View {
 
 struct AddRatingFourthView_Previews: PreviewProvider {
     static var previews: some View {
-        AddRatingFourthView(selectedDorm: .constant("Dorm 1"), roomRating: .constant(4), buildingRating: .constant(4), bathroomRating: .constant(3), locationRating: .constant(5), comment: .constant("This is a comment"), photo: .constant(UIImage(systemName: "photo")?.jpegData(compressionQuality: 1.0)))
+        AddRatingFourthView(selectedDorm: .constant("Dorm 1"), roomRating: .constant(4), buildingRating: .constant(4), bathroomRating: .constant(3), locationRating: .constant(5), comment: .constant("This is a comment"), photo: .constant(UIImage(systemName: "photo")?.jpegData(compressionQuality: 1.0)), universityName: .constant("Northeastern University"))
     }
 }

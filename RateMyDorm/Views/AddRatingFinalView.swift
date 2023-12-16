@@ -19,8 +19,8 @@ struct AddRatingFinalView: View {
     @Binding var photo: Data?
     @Binding var selectedClassYears: Array<Bool>
     @Binding var selectedRoomTypes: Array<Bool>
+    @Binding var universityName: String
     
-    @State private var universityName = "Northeastern"
     @State private var classYears = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate Student"]
     @State private var roomTypes = ["Single", "Double", "Triple", "Quad", "Suite", "Other"]
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -180,6 +180,6 @@ struct AddRatingFinalView: View {
 
 struct AddRatingFinalView_Previews: PreviewProvider {
     static var previews: some View {
-        AddRatingFinalView(selectedDorm: .constant("Dorm 1"), roomRating: .constant(4), buildingRating: .constant(4), bathroomRating: .constant(3), locationRating: .constant(5), comment: .constant("This is a very very very very very very very very very very very very very very long comment"), photo: .constant(UIImage(systemName: "photo")?.jpegData(compressionQuality: 1.0)), selectedClassYears: .constant([true, true, false, false, false]), selectedRoomTypes: .constant([true, false, false, true, false, false]))
+        AddRatingFinalView(selectedDorm: .constant("Dorm 1"), roomRating: .constant(4), buildingRating: .constant(4), bathroomRating: .constant(3), locationRating: .constant(5), comment: .constant("This is a very very very very very very very very very very very very very very long comment"), photo: .constant(UIImage(systemName: "photo")?.jpegData(compressionQuality: 1.0)), selectedClassYears: .constant([true, true, false, false, false]), selectedRoomTypes: .constant([true, false, false, true, false, false]), universityName: .constant("Northeastern University"))
     }
 }

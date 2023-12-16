@@ -15,6 +15,7 @@ struct AddRatingSecondView: View {
     @State private var showThirdView = false
     @Binding var showSecondView: Bool
     @Binding var selectedDorm: String
+    @Binding var universityName: String
     
     var body: some View {
         NavigationStack {
@@ -117,7 +118,7 @@ struct AddRatingSecondView: View {
                         // next page
                         if (showNextButton()){
                             NavigationLink(
-                                destination: AddRatingThirdView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating),
+                                destination: AddRatingThirdView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, universityName: $universityName),
                                 isActive: $showThirdView,
                                 label: {
                                     Image(systemName: "arrow.right")
@@ -150,6 +151,6 @@ struct AddRatingSecondView: View {
 
 struct AddRatingSecondView_Previews: PreviewProvider {
     static var previews: some View {
-        AddRatingSecondView(showSecondView: .constant(true), selectedDorm: .constant("Dorm 1"))
+        AddRatingSecondView(showSecondView: .constant(true), selectedDorm: .constant("Dorm 1"), universityName: .constant("Northeastern University"))
     }
 }

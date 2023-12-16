@@ -14,6 +14,7 @@ struct AddRatingThirdView: View {
     @Binding var buildingRating: Int
     @Binding var bathroomRating: Int
     @Binding var locationRating: Int
+    @Binding var universityName: String
     
     @State private var comment: String = ""
     @State private var commentWordCount = 0
@@ -133,7 +134,7 @@ struct AddRatingThirdView: View {
                         // next page
                         if (commentWordCount >= 20) {
                             NavigationLink(
-                                destination: AddRatingFourthView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo),
+                                destination: AddRatingFourthView(selectedDorm: $selectedDorm, roomRating: $roomRating, buildingRating: $buildingRating, bathroomRating: $bathroomRating, locationRating: $locationRating, comment: $comment, photo: $photo, universityName: $universityName),
                                 label: {
                                     Image(systemName: "arrow.right")
                                         .font(.system(size: 20))
@@ -163,6 +164,6 @@ struct AddRatingThirdView: View {
 
 struct AddRatingThirdView_Previews: PreviewProvider {
     static var previews: some View {
-        AddRatingThirdView(selectedDorm: .constant("Dorm 1"), roomRating: .constant(4), buildingRating: .constant(4), bathroomRating: .constant(3), locationRating: .constant(5) )
+        AddRatingThirdView(selectedDorm: .constant("Dorm 1"), roomRating: .constant(4), buildingRating: .constant(4), bathroomRating: .constant(3), locationRating: .constant(5), universityName: .constant("Northeastern University"))
     }
 }
