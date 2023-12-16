@@ -28,6 +28,7 @@ struct Review: Identifiable, Codable {
 
 class ReviewListViewModel: ObservableObject {
     @Published var reviews: [Review] = []
+    @EnvironmentObject var userViewModel: UserViewModel
 
     private var db = Firestore.firestore()
 
@@ -36,30 +37,52 @@ class ReviewListViewModel: ObservableObject {
     }
     
     func fetchReviews() {
-            db.collection("review").getDocuments { [weak self] (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    let items = querySnapshot?.documents.compactMap { document -> Review? in
-                        try? document.data(as: Review.self)
-                    }
-                    DispatchQueue.main.async {
-                        self?.reviews = items ?? []
+            guard let currentUser = userViewModel.currentUser else { return }
+            
+            let reviewIds = currentUser.reviewIds  // Assuming this is how you access review IDs
+            let reviewCollection = db.collection("review")
+
+            for reviewId in reviewIds {
+                reviewCollection.document(reviewId).getDocument { [weak self] (document, error) in
+                    if let document = document, document.exists {
+                        if let review = try? document.data(as: Review.self) {
+                            DispatchQueue.main.async {
+                                self?.reviews.append(review)
+                            }
+                        }
+                    } else {
+                        print("Document does not exist")
                     }
                 }
             }
         }
     
     func deleteReview(_ review: Review) {
-        db.collection("review").document(review.id!).delete { err in
+        guard let reviewId = review.id, let userId = userViewModel.currentUser?.id else { return }
+
+        let userDocument = db.collection("users").document(userId)
+        let reviewDocument = db.collection("review").document(reviewId)
+
+        // Begin a batch write to ensure atomicity
+        let batch = db.batch()
+
+        // Delete the review document
+        batch.deleteDocument(reviewDocument)
+
+        // Update the user document to remove the reviewId from reviewIds
+        batch.updateData(["reviewIds": FieldValue.arrayRemove([reviewId])], forDocument: userDocument)
+
+        // Commit the batch write
+        batch.commit { err in
             if let err = err {
-                print("Error removing document: \(err)")
+                print("Error writing batch \(err)")
             } else {
-                print("Document successfully removed!")
+                print("Batch write succeeded.")
                 self.fetchReviews() // Refresh the list after deletion
             }
         }
     }
+
 }
 
 struct ReviewCell: View {
@@ -122,18 +145,10 @@ struct ReviewCell: View {
     }
 }
 
-// Placeholder for StarRatingView
-//struct StarRatingView: View {
-//    var rating: Double
-//    var maxRating: Int
-//
-//    var body: some View {
-//        Text("★ \(rating)/\(maxRating)")
-//            .foregroundColor(.yellow)
-//    }
-//}
+
 
 struct ReviewListView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
     @ObservedObject var viewModel = ReviewListViewModel()
 
     var body: some View {
@@ -152,7 +167,7 @@ struct ReviewListView: View {
 
 struct ReviewListView_Previews: PreviewProvider {
     static var previews: some View {
-        ReviewListView()
+        ReviewListView().environmentObject(UserViewModel())
     }
 }
 

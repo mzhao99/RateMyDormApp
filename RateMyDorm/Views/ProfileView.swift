@@ -11,6 +11,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var selectedTab = "Rating"
+    @ObservedObject var postViewModel = PostViewModel()
+    @ObservedObject var commentViewModel = CommentViewModel()
     
     var body: some View {
         VStack {
@@ -39,8 +41,8 @@ struct ProfileView: View {
             // Content below tabs
             TabView(selection: $selectedTab) {
                 ReviewListView().tag("Rating")
-                PostView().tag("Post")
-                CommentView().tag("Comment")
+                PostView(viewModel: postViewModel).tag("Post")
+                CommentView(viewModel: commentViewModel).tag("Comment")
             }
             
             Spacer()
@@ -67,13 +69,6 @@ struct TabButton: View {
 }
 
 
-//views for Rating, Post, and Comment
-//we need to change it later, it is just test
-//struct RatingView: View {
-//    var body: some View {
-//        Text("Rating Content")
-//    }
-//}
 
 
 

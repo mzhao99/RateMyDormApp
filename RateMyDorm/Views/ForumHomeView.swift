@@ -7,9 +7,11 @@
 import Foundation
 import FirebaseFirestore
 import SwiftUI
+import Firebase
+import FirebaseFirestoreSwift
 
 struct ForumPost: Identifiable, Codable {
-    var id: String
+    var id: String?
     var title: String
     var description: String
     var timeStamp: Date
@@ -52,6 +54,7 @@ struct ForumPost: Identifiable, Codable {
 
 class ForumViewModel: ObservableObject {
     @Published var forumPosts: [ForumPost] = []
+    @Published var comments: [ForumPost] = []
 
     init() {
         fetchForumPosts()
@@ -59,19 +62,39 @@ class ForumViewModel: ObservableObject {
 
     func fetchForumPosts() {
         let db = Firestore.firestore()
-        db.collection("forum").whereField("parentId", isEqualTo: "none")
-           .order(by: "timeStamp", descending: true)
-           .getDocuments { snapshot, error in
-               if let error = error {
-                   print("Error getting documents: \(error)")
-               } else {
-                   self.forumPosts = snapshot?.documents.compactMap { docSnapshot -> ForumPost? in
-                       ForumPost(document: docSnapshot.data())
-                   } ?? []
-               }
-           }
+        db.collection("forum")
+          .whereField("parentId", isEqualTo: "none")
+//          .order(by: "timeStamp", descending: true)
+          .getDocuments { [weak self] (snapshot, error) in
+              if let error = error {
+                  print("Error getting documents: \(error)")
+              } else {
+                  self?.forumPosts = snapshot?.documents.compactMap { document in
+                      try? document.data(as: ForumPost.self)
+                  } ?? []
+              }
+          }
     }
+    
+    
+    func fetchComments(for postId: String) {
+            let db = Firestore.firestore()
+            db.collection("forum")
+              .whereField("parentId", isEqualTo: postId)
+              .getDocuments { [weak self] (snapshot, error) in
+                  if let error = error {
+                      print("Error getting documents: \(error)")
+                  } else {
+                      self?.comments = snapshot?.documents.compactMap { document in
+                          try? document.data(as: ForumPost.self)
+                      } ?? []
+                  }
+              }
+        }
+
+    
 }
+
 
 
 
@@ -101,6 +124,10 @@ struct ForumListView: View {
                                 Text("Add Post")
                             }
                         )
+            .onAppear {
+                            viewModel.fetchForumPosts()
+                        }
+            
         }
     }
 }
@@ -174,62 +201,132 @@ struct AddPostView: View {
 
 }
 
+extension ForumDetailView {
+    private func addComment() {
+        guard let userId = userViewModel.currentUser?.id,
+              let username = userViewModel.currentUser?.username else { return }
+
+        let db = Firestore.firestore()
+        let newCommentId = UUID().uuidString
+
+        let newCommentData: [String: Any] = [
+            "id": newCommentId,
+            "title": forumPost.title, // Assuming comments use the same title as the post
+            "description": newCommentText,
+            "timeStamp": Timestamp(date: Date()),
+            "userId": userId,
+            "username": username,
+            "parentId": forumPost.id
+        ]
+
+        db.collection("forum").document(newCommentId).setData(newCommentData) { error in
+            if let error = error {
+                print("Error saving new comment: \(error)")
+                return
+            }
+            updateUserForumIds(with: newCommentId)
+                
+                    if let postId = forumPost.id {
+                        viewModel.fetchComments(for: postId)
+                    }
+                
+        }
+    }
+
+    private func updateUserForumIds(with newCommentId: String) {
+        guard let userId = userViewModel.currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("user").document(userId)
+
+        userRef.updateData([
+            "forumIds": FieldValue.arrayUnion([newCommentId])
+        ]) { error in
+            if let error = error {
+                print("Error updating user's forumIds: \(error)")
+            } else {
+                print("User's forumIds updated with new comment ID")
+            }
+        }
+    }
+}
 
 
 struct ForumDetailView: View {
     var forumPost: ForumPost
     @ObservedObject var viewModel: ForumViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    @State private var newCommentText: String = ""
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
-                Text(forumPost.title).font(.headline)
-                Text(forumPost.description).font(.body)
-                Text("Posted by \(forumPost.username) on \(forumPost.timeStamp.formatted())").font(.caption)
-                Divider()
-                Text("Comments:").font(.headline)
-                ForEach(viewModel.forumPosts.filter { $0.parentId == forumPost.id }) { comment in
-                    VStack(alignment: .leading) {
-                        Text(comment.description)
-                        Text("Comment by \(comment.username)").font(.caption)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    // Post details
+                    Text(forumPost.title).font(.headline)
+                    Text(forumPost.description).font(.body)
+                    Text("Posted by \(forumPost.username) on \(forumPost.timeStamp.formatted())").font(.caption)
+                    Divider()
+
+                    // Existing comments
+                    Text("Comments:").font(.headline)
+                    ForEach(viewModel.comments) { comment in
+                        VStack(alignment: .leading) {
+                            Text(comment.description)
+                            Text("Comment by \(comment.username)").font(.caption)
+                        }
+                        .padding(.bottom, 5)
                     }
-                    .padding(.bottom, 5)
+
+                    // Add comment section
+                    Divider()
+                    Text("Add a Comment").font(.headline)
+                    TextField("Type your comment here...", text: $newCommentText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    Button("Post Comment") {
+                        addComment()
+                    }
+                    .padding(.bottom)
+                }
+                .padding()
+            }
+            .onAppear {
+                if let postId = forumPost.id {
+                    viewModel.fetchComments(for: postId)
                 }
             }
-            .padding()
+            .navigationBarTitle(Text(forumPost.title), displayMode: .inline)
         }
-        .navigationBarTitle(Text(forumPost.title), displayMode: .inline)
-    }
 }
 
-class MockForumViewModel: ForumViewModel {
-//    @Published var forumPosts: [ForumPost] = []
-    override init() {
-            super.init()
-            let mockDocument1: [String: Any] = [
-                "id": "1",
-                "title": "First Post",
-                "description": "This is the first forum post.",
-                "timeStamp": Timestamp(date: Date()),
-                "userId": "user1",
-                "username": "User One",
-                "parentId": "none"
-            ]
-            
-            if let post = ForumPost(document: mockDocument1) {
-                forumPosts.append(post)
-            }
-        }
-    
+//class MockForumViewModel: ForumViewModel {
+////    @Published var forumPosts: [ForumPost] = []
+//    override init() {
+//            super.init()
+//            let mockDocument1: [String: Any] = [
+//                "id": "1",
+//                "title": "First Post",
+//                "description": "This is the first forum post.",
+//                "timeStamp": Timestamp(date: Date()),
+//                "userId": "user1",
+//                "username": "User One",
+//                "parentId": "none"
+//            ]
+//            
+//            if let post = ForumPost(document: mockDocument1) {
+//                forumPosts.append(post)
+//            }
+//        }
+//    
+//
+//    
+//}
 
-    
-}
 
-
-struct ForumListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ForumListView(viewModel: MockForumViewModel())
-    }
-}
+//struct ForumListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ForumListView(viewModel: MockForumViewModel())
+//    }
+//}
 
 

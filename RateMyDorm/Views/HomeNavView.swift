@@ -33,7 +33,7 @@ struct HomeNavView: View {
                 case 3:
                     ForumListView()
                 case 4:
-                    UserProfileView()
+                    ProfileView()
                 default:
                     HomeView(universityName: $universityName)
                 }

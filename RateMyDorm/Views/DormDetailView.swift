@@ -143,9 +143,9 @@ struct DormDetailView: View {
 
             
             
-            RatingCardView(overallRating: .constant(4.5), date: .constant("2023/12/22"), roomType: .constant("Single Room"), comment: .constant("I lived in a seventh floor single. It wasn’t huge, but definitely enough space for one person. I lived in a Hojo triple freshman year and there was no light but seventh floor facing the river was wonderful, you could MIT campus and there was plenty of natural light. AC/heating is an old unit, not like the thermostat in some of the lower floors, so I recommend buying an electric thermostat. The top floor study lounge is great, it has heating problems but is a great chill place to study. Honestly, you have the great location of East, the safety of a security guard, and the privacy of an apartment/bay state. It’s a super quiet and lowkey building. BU’s hidden gem!"), roomRating: .constant(4), buildingRating: .constant(3), locationRating: .constant(4), bathroomRating: .constant(2), photo: .constant("https://www.bu.edu/housing/files/2019/12/18-1773-HUB1-166-1500x624.jpg"))
-                .padding(.bottom)
-                .padding(.horizontal, 10)
+//            RatingCardView(overallRating: .constant(4.5), date: .constant("2023/12/22"), roomType: .constant("Single Room"), comment: .constant("I lived in a seventh floor single. It wasn’t huge, but definitely enough space for one person. I lived in a Hojo triple freshman year and there was no light but seventh floor facing the river was wonderful, you could MIT campus and there was plenty of natural light. AC/heating is an old unit, not like the thermostat in some of the lower floors, so I recommend buying an electric thermostat. The top floor study lounge is great, it has heating problems but is a great chill place to study. Honestly, you have the great location of East, the safety of a security guard, and the privacy of an apartment/bay state. It’s a super quiet and lowkey building. BU’s hidden gem!"), roomRating: .constant(4), buildingRating: .constant(3), locationRating: .constant(4), bathroomRating: .constant(2), photo: .constant("https://www.bu.edu/housing/files/2019/12/18-1773-HUB1-166-1500x624.jpg"))
+//                .padding(.bottom)
+//                .padding(.horizontal, 10)
         }
         .navigationBarTitle("\(dormName) Reviews", displayMode: .inline)
     }

@@ -25,7 +25,7 @@ class UserViewModel: ObservableObject {
     @Published var currentUser: UserModel?
 }
 
-struct UserModel: Identifiable, Codable {
+struct UserModel: Identifiable, Codable, Equatable {
     @DocumentID var id: String?
     var username: String
     var email: String
