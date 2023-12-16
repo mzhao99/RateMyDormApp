@@ -17,7 +17,7 @@ struct HomeNavView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     
     let icons = ["house", "book", "plus", "quote.bubble", "person"]
-    let captions = ["Home", "Resource", "Add Review", "Forum", "Me"]
+    let captions = ["Home", "Resource", "Add Review", "Forum", "Account"]
     
     var body: some View {
         VStack {
