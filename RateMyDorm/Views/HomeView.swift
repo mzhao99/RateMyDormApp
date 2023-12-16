@@ -45,22 +45,33 @@ struct HomeView: View {
             }
         }
     }
-
+    
     var body: some View {
         NavigationView {
             List {
                 ForEach(filteredDorms) { dorm in
                     NavigationLink(destination: DormDetailView(dormName: .constant(dorm.name), overallRating: .constant(dorm.overallRating), roomRating: .constant(dorm.roomRating), buildingRating: .constant(dorm.buildingRating), locationRating: .constant(dorm.locationRating), bathroomRating: .constant(dorm.bathroomRating), numOfReviews: .constant(dorm.numOfReviews), reviews: .constant(dorm.reviews), photos: .constant(dorm.photos), numOfClassYears: .constant(dorm.numOfClassYears), freshman: .constant(dorm.freshman), sophomore: .constant(dorm.sophomore), junior: .constant(dorm.junior), senior: .constant(dorm.senior), graduate: .constant(dorm.graduate))) {
                         HStack {
-                            // dorm image
-                            AsyncImage(url: URL(string: dorm.photos.first ?? "https://www.ratemydorm.com/_next/image?url=%2Fimg%2Fdorm-square.jpg&w=1920&q=75")) { image in image
+                            if let photoString = dorm.photos.first,
+                               let photoData = Data(base64Encoded: photoString),
+                               let uiImage = UIImage(data: photoData) {
+                                Image(uiImage: uiImage)
                                     .resizable()
-                            } placeholder: {
-                                ProgressView()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 120, height: 100)
+                                    .clipped()
+                                    .cornerRadius(10)
+                                    .padding(.vertical, 10)
+                            } else {
+                                AsyncImage(url: URL(string: "https://www.ratemydorm.com/_next/image?url=%2Fimg%2Fdorm-square.jpg&w=1920&q=75")) { image in image
+                                        .resizable()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(width: 120, height: 100)
+                                .cornerRadius(10)
+                                .padding(.vertical, 10)
                             }
-                            .frame(width: 120, height: 100)
-                            .cornerRadius(10)
-                            .padding(.vertical, 10)
                             
                             //dorm title and rating
                             VStack(alignment: .leading) {

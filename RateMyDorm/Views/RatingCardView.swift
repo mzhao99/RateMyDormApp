@@ -91,28 +91,17 @@ struct RatingCardView: View {
                     .padding(.trailing, 80)
                     .padding(.bottom, 15)
                     
-                    if let photo = photo, let imageURL = URL(string: photo) {
-                        AsyncImage(url: imageURL) { phase in
-                            switch phase {
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 200, height: 200)
-                                    .clipped()
-                                    .cornerRadius(20)
-                            case .failure(_):
-                                ProgressView()
-                                    .frame(height: 170)
-                            case .empty:
-                                ProgressView()
-                                    .frame(height: 170)
-                            @unknown default:
-                                ProgressView()
-                                    .frame(height: 170)
-                            }
-                        }
+                    if let photoString = photo,
+                       let photoData = Data(base64Encoded: photoString),
+                       let uiImage = UIImage(data: photoData) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 240, height: 200)
+                            .clipped()
+                            .cornerRadius(20)
                     }
+
                 }
                 .padding()
             }

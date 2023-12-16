@@ -90,7 +90,7 @@ struct DormDetailView: View {
                         HStack {
                             Text("Freshman")
                             Spacer()
-                            ProgressView(value: Double(freshman) / Double(numOfClassYears) == 0 ? 1 : Double(numOfClassYears))
+                            ProgressView(value: Double(freshman) / (Double(numOfClassYears))
                                 .frame(width: 120)
                                 .scaleEffect(x: 1, y: 3, anchor: .center)
                                 .tint(.teal)
@@ -99,7 +99,7 @@ struct DormDetailView: View {
                         HStack {
                             Text("Sophomore")
                             Spacer()
-                            ProgressView(value: Double(sophomore) / Double(numOfClassYears) == 0 ? 1 : Double(numOfClassYears))
+                            ProgressView(value: Double(sophomore) / Double(numOfClassYears))
                                 .frame(width: 120)
                                 .scaleEffect(x: 1, y: 3, anchor: .center)
                                 .tint(.teal)
@@ -108,7 +108,7 @@ struct DormDetailView: View {
                         HStack {
                             Text("Junior")
                             Spacer()
-                            ProgressView(value: Double(junior) / Double(numOfClassYears) == 0 ? 1 : Double(numOfClassYears))
+                            ProgressView(value: Double(junior) / Double(numOfClassYears))
                                 .frame(width: 120)
                                 .scaleEffect(x: 1, y: 3, anchor: .center)
                                 .tint(.teal)
@@ -117,7 +117,7 @@ struct DormDetailView: View {
                         HStack {
                             Text("Senior")
                             Spacer()
-                            ProgressView(value: Double(senior) / Double(numOfClassYears) == 0 ? 1 : Double(numOfClassYears))
+                            ProgressView(value: Double(senior) / Double(numOfClassYears))
                                 .frame(width: 120)
                                 .scaleEffect(x: 1, y: 3, anchor: .center)
                                 .tint(.teal)
@@ -126,7 +126,7 @@ struct DormDetailView: View {
                         HStack {
                             Text("Graduate")
                             Spacer()
-                            ProgressView(value: Double(graduate) / Double(numOfClassYears) == 0 ? 1 : Double(numOfClassYears))
+                            ProgressView(value: Double(graduate) / Double(numOfClassYears))
                                 .frame(width: 120)
                                 .scaleEffect(x: 1, y: 3, anchor: .center)
                                 .tint(.teal)
