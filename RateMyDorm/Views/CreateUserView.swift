@@ -35,6 +35,7 @@ struct CreateUserView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
                     )
+                    .autocapitalization(.none)
                 
                 SecureField("Password", text: $password)
                     .padding()
@@ -42,6 +43,7 @@ struct CreateUserView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
                     )
+                    .autocapitalization(.none)
       
                 TextField("Username", text: $username)
                     .padding()
@@ -49,6 +51,7 @@ struct CreateUserView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
                     )
+                    .autocapitalization(.none)
                 
                 // Dropdown Button
                 Button(action: {
@@ -159,8 +162,36 @@ struct CreateUserView: View {
                 showErrorMessage = true
             } else {
                 showErrorMessage = false
-                registrationSuccessful = true
+                addUserToFirestore()
             }
+        }
+    }
+    
+    func addUserToFirestore() {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+
+        let user = UserModel(
+            id: userId,
+            username: username,
+            email: email,
+            forumIds: [],
+            reviewIds: [],
+            universityName: selectedUniversity ?? ""
+        )
+
+        // Add user to 'users' collection in Firestore
+        do {
+            // Add user to 'users' collection in Firestore
+            try Firestore.firestore().collection("user").document(userId).setData(from: user)
+            // User added to Firestore successfully
+            registrationSuccessful = true
+        } catch let error {
+            // Handle error adding user to Firestore
+            print("Error adding user to Firestore: \(error.localizedDescription)")
+            errorMessage = "Failed to create account. Please try again."
+            showErrorMessage = true
         }
     }
 }

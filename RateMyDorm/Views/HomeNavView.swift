@@ -14,6 +14,8 @@ struct HomeNavView: View {
     
     @State private var universityName = "Northeastern University" // change to binding var later
     
+    @EnvironmentObject var userViewModel: UserViewModel
+    
     let icons = ["house", "book", "plus", "quote.bubble", "person"]
     let captions = ["Home", "Resource", "Add Review", "Forum", "Me"]
     
@@ -73,11 +75,15 @@ struct HomeNavView: View {
                 }
             }
         }
+//        .onAppear {
+//            print(userViewModel.currentUser?.email ?? "N/A")
+//        }
     }
 }
 
 struct HomeNavView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeNavView()
+        let userViewModel = UserViewModel()
+        HomeNavView().environmentObject(userViewModel)
     }
 }

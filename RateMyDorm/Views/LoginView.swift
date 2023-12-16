@@ -108,7 +108,6 @@ struct LoginView: View {
                 )
                 .hidden()
                 
-                
                 Spacer()
             }
             .padding()
@@ -147,9 +146,8 @@ struct LoginView: View {
             if let user = try? document?.data(as: UserModel.self) {
                 // Update the userViewModel with the retrieved user data
                 userViewModel.currentUser = user
-                print("\(user.email)")
             }
-            
+//            print("email: \(userViewModel.currentUser?.email ?? "N/A")" )
             loginSuccessful = true
         }
     }
@@ -158,6 +156,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        let userViewModel = UserViewModel()
+        LoginView().environmentObject(userViewModel)
     }
 }
