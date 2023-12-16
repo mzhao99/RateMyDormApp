@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct AddRatingView: View {
     @Binding var showAddRating: Bool
@@ -13,9 +15,9 @@ struct AddRatingView: View {
     @State private var selected = "Select a dorm"
     @State private var dormSelected = false
     @State private var showSecondView = false
+    @State private var dorms = [Dorm]()
+    @Binding var universityName: String
         
-    private let dorms = ["Dorm 1", "Dorm 2", "Dorm 3", "Dorm 4", "Dorm 5", "Dorm 6"]
-    
     var body: some View {
         Spacer().fullScreenCover(isPresented: $showAddRating, content: {
             NavigationStack {
@@ -42,15 +44,15 @@ struct AddRatingView: View {
                             RoundedRectangle(cornerRadius: 10)
                             ScrollView {
                                 VStack(spacing: 20) {
-                                    ForEach(0..<dorms.count, id: \.self) { num in
+                                    ForEach(dorms) { dorm in
                                         Button {
                                             withAnimation{
-                                                selected = dorms[num]
+                                                selected = dorm.name
                                                 showDropdown.toggle()
                                                 dormSelected = true
                                             }
                                         } label: {
-                                            Text(dorms[num]).foregroundColor(.black)
+                                            Text(dorm.name).foregroundColor(.black)
                                             Spacer()
                                         }
                                     }
@@ -119,7 +121,31 @@ struct AddRatingView: View {
                     AddRatingSecondView(showSecondView: $showSecondView, selectedDorm: $selected)
                 }
             }
+            .onAppear {
+                fetchDorms()
+            }
         })
+    }
+    
+    private func fetchDorms() {
+        let db = Firestore.firestore()
+        db.collection("dorm")
+            .whereField("universityName", isEqualTo: universityName)
+            .addSnapshotListener { snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                
+                dorms = documents.compactMap { document in
+                    do {
+                        return try document.data(as: Dorm.self)
+                    } catch {
+                        print("Error decoding dorm: \(error.localizedDescription)")
+                        return nil
+                    }
+                }
+            }
     }
 }
 
@@ -132,7 +158,7 @@ struct AddRatingView_Previews: PreviewProvider {
         @State private var showAddRating = true
 
         var body: some View {
-            AddRatingView(showAddRating: $showAddRating)
+            AddRatingView(showAddRating: $showAddRating, universityName: .constant("Northeastern University"))
         }
     }
 }

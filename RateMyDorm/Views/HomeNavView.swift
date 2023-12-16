@@ -21,7 +21,7 @@ struct HomeNavView: View {
         VStack {
             // Content
             ZStack {
-                AddRatingView(showAddRating: $showAddRating)
+                AddRatingView(showAddRating: $showAddRating, universityName: $universityName)
                 
                 switch selectedIndex {
                 case 0:
