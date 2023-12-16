@@ -11,7 +11,9 @@ import Firebase
 @main
 struct RateMyDormApp: App {
     let persistenceController = PersistenceController.shared
+    @StateObject private var userViewModel = UserViewModel()
 
+    
     init() {
         FirebaseApp.configure()
     }
@@ -19,6 +21,7 @@ struct RateMyDormApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(userViewModel)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

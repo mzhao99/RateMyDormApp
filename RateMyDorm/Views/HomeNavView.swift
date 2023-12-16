@@ -9,6 +9,8 @@ import SwiftUI
 
 // a customized tab bar to allow modal subviews
 struct HomeNavView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var userViewModel: UserViewModel
     @State private var selectedIndex = 0
     @State private var showAddRating = false
     
@@ -76,8 +78,24 @@ struct HomeNavView: View {
     }
 }
 
+
+
 struct HomeNavView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeNavView()
+        // Create a mock user model
+        let mockUser = UserModel(id: "1", username: "TestUser", email: "test@example.com")
+
+        // Create a mock UserViewModel
+        let userViewModel = UserViewModel()
+        userViewModel.currentUser = mockUser
+
+        // Create a mock PersistenceController for Core Data
+        let persistenceController = PersistenceController.preview
+
+        return HomeNavView()
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .environmentObject(userViewModel)
     }
 }
+
+

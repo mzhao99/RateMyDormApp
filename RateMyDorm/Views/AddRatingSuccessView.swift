@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct AddRatingSuccessView: View {
+    
     @State private var opacity1: Double = 0
     @State private var opacity2: Double = 0
     @State private var opacity3: Double = 0
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
         NavigationView {

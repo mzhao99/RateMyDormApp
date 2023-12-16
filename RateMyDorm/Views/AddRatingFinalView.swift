@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AddRatingFinalView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var userViewModel: UserViewModel
     @Binding var selectedDorm: String
     @Binding var roomRating: Int
     @Binding var buildingRating: Int

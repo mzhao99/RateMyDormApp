@@ -20,7 +20,7 @@ struct ProfileView: View {
                     Text("Welcome back,")
                         .font(.headline)
                         .foregroundColor(.gray)
-                    Text("Username")
+                    Text("Shiyun")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                 }
@@ -38,7 +38,7 @@ struct ProfileView: View {
             
             // Content below tabs
             TabView(selection: $selectedTab) {
-                RatingView().tag("Rating")
+                ReviewListView().tag("Rating")
                 PostView().tag("Post")
                 CommentView().tag("Comment")
             }
@@ -69,27 +69,19 @@ struct TabButton: View {
 
 //views for Rating, Post, and Comment
 //we need to change it later, it is just test
-struct RatingView: View {
-    var body: some View {
-        Text("Rating Content")
-    }
-}
+//struct RatingView: View {
+//    var body: some View {
+//        Text("Rating Content")
+//    }
+//}
 
-struct PostView: View {
-    var body: some View {
-        Text("Post Content")
-    }
-}
 
-struct CommentView: View {
-    var body: some View {
-        Text("Comment Content")
-    }
-}
+
+
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileView()
+        ProfileView()
     }
 }
 

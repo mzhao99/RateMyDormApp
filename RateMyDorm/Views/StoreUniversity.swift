@@ -5,12 +5,21 @@
 //  Created by 田诗韵 on 12/13/23.
 //
 
-import Foundation
-
+import SwiftUI
 import Firebase
-import FirebaseDatabase
 
-import Combine
+// Define a struct for decoding JSON data
+struct SchoolResponse: Codable {
+    let results: [School]
+}
+
+struct School: Codable {
+    let name: String
+
+    enum CodingKeys: String, CodingKey {
+        case name = "school.name"
+    }
+}
 
 // ViewModel to manage fetching and storing university data
 class UniversityListViewModel: ObservableObject {
@@ -26,25 +35,29 @@ class UniversityListViewModel: ObservableObject {
     
     func fetchUniversityDataIfNeeded() {
         isLoading = true
-        dbRef.child("universities").observeSingleEvent(of: .value, with: { [weak self] snapshot in
+        dbRef.child("university").observeSingleEvent(of: .value, with: { [weak self] snapshot in
             guard let self = self else { return }
-            self.isLoading = false
             
             if !snapshot.exists() || snapshot.childrenCount == 0 {
                 self.fetchUniversityData()
             } else {
-                // If data exists, use it to populate the universities array
-                for child in snapshot.children {
-                    if let snapshot = child as? DataSnapshot,
-                       let value = snapshot.value as? [String: Any],
-                       let name = value["name"] as? String {
-                        self.universities.append(name)
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    // If data exists, use it to populate the universities array
+                    for child in snapshot.children {
+                        if let snapshot = child as? DataSnapshot,
+                           let value = snapshot.value as? [String: Any],
+                           let name = value["name"] as? String {
+                            self.universities.append(name)
+                        }
                     }
                 }
             }
         }) { [weak self] error in
-            self?.isLoading = false
-            self?.error = error
+            DispatchQueue.main.async {
+                self?.isLoading = false
+                self?.error = error
+            }
         }
     }
     
@@ -52,31 +65,37 @@ class UniversityListViewModel: ObservableObject {
         let urlString = "https://api.data.gov/ed/collegescorecard/v1/schools.json?fields=school.name&api_key=0GybFNBBZr9kyVFq9WCcb8uZPxLJVxdzZAXCyebq"
         guard let url = URL(string: urlString) else { return }
 
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data, error == nil else { return }
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let data = data, error == nil else {
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                    self?.error = error
+                }
+                return
+            }
 
             do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                   let results = json["results"] as? [[String: Any]] {
-                    for school in results {
-                        if let schoolName = school["school.name"] as? String {
-                            self.storeUniversityInFirebase(name: schoolName)
-                        }
-                    }
+                let schoolResponse = try JSONDecoder().decode(SchoolResponse.self, from: data)
+                for school in schoolResponse.results {
+                    self?.storeUniversityInFirebase(name: school.name)
+                }
+                DispatchQueue.main.async {
+                    self?.isLoading = false
                 }
             } catch {
-                print(error)
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                    self?.error = error
+                }
             }
-        }
-
-        task.resume()
+        }.resume()
     }
-
     
     private func storeUniversityInFirebase(name: String) {
         dbRef.child("university").childByAutoId().setValue(["name": name])
     }
 }
+
 
 // SwiftUI View
 
@@ -124,3 +143,4 @@ class UniversityListViewModel: ObservableObject {
 //        let ref = Database.database().reference()
 //        ref.child("universities").childByAutoId().setValue(["name": name])
 //    }
+//let urlString = "https://api.data.gov/ed/collegescorecard/v1/schools.json?fields=school.name&api_key=0GybFNBBZr9kyVFq9WCcb8uZPxLJVxdzZAXCyebq"

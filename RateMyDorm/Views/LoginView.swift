@@ -19,11 +19,27 @@ struct FacebookLoginButton: UIViewRepresentable {
     func updateUIView(_ uiView: FBLoginButton, context: Context) {}
 }
 
+class UserViewModel: ObservableObject {
+    @Published var currentUser: UserModel?
+}
+
+struct UserModel {
+    var id: String
+    var username: String
+    var email: String
+    // Add other user properties like username and university if needed
+}
+
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
+    @State private var username = ""  // Assuming you have a field for username during registration
     @State private var showErrorMessage = false
     @State private var errorMessage = ""
+    @EnvironmentObject var userViewModel: UserViewModel
+
+    @State private var shouldNavigate = false
+
 
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -78,6 +94,13 @@ struct LoginView: View {
                     )
             }
             
+            NavigationLink(
+                                destination: HomeNavView(),
+                                isActive: $shouldNavigate
+                            ) {
+                                EmptyView()
+                            }
+            
             FacebookLoginButton()
                 .frame(width: 200, height: 28)
                 .padding()
@@ -98,33 +121,73 @@ struct LoginView: View {
                     errorMessage = "Incorrect email or password. Please try again."
                 }
                 showErrorMessage = true
-            } else {
-                showErrorMessage = false
-            }
+                return
+            } 
+            guard let user = result?.user else { return}
+            
+            fetchUserData(userId: user.uid)
+            
         }
     }
 
     func register() {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if error != nil {
-                if error!.localizedDescription == "The email address is badly formatted." {
-                    errorMessage = "Please provide a valid email address"
-                } else {
-                    errorMessage = error!.localizedDescription
+            Auth.auth().createUser(withEmail: email, password: password) { result, error in
+                if let error = error {
+                    // Handle error...
+                    self.errorMessage = error.localizedDescription
+                    self.showErrorMessage = true
+                    return
                 }
-                showErrorMessage = true
+
+                guard let user = result?.user else { return }
+
+                let userData: [String: Any] = [
+                    "username": username,
+                    "email": user.email ?? ""
+                ]
+                Firestore.firestore().collection("users").document(user.uid).setData(userData)
+
+                let userModel = UserModel(id: user.uid, username: username, email: user.email ?? "")
+                self.userViewModel.currentUser = userModel
+            }
+        }
+
+    
+    func fetchUserData(userId: String) {
+        Firestore.firestore().collection("users").document(userId).getDocument { document, error in
+            if let error = error {
+                // Log the error or update the UI to inform the user
+                print("Error fetching user data: \(error.localizedDescription)")
+                self.errorMessage = "Failed to fetch user data. Please try again."
+                self.showErrorMessage = true
+                return
+            }
+
+            if let document = document, document.exists, let data = document.data() {
+                let userModel = UserModel(
+                    id: userId,
+                    username: data["username"] as? String ?? "",
+                    email: data["email"] as? String ?? ""
+                )
+                self.userViewModel.currentUser = userModel
+                self.shouldNavigate = true
+                
             } else {
-                showErrorMessage = false
+                // Data not found for the given user ID
+                print("No data found for user ID: \(userId)")
+                self.errorMessage = "No user data found. Please ensure your account is set up correctly."
+                self.showErrorMessage = true
             }
         }
     }
+
 }
 
-//struct LoginView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoginView()
-//    }
-//}
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+    }
+}
 //#Preview {
 //    LoginView()
 //}

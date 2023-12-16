@@ -12,7 +12,7 @@ import SwiftUI
 struct CreateUserView: View {
     @StateObject var viewModel = UniversityListViewModel()
     @State private var username: String = ""
-    @State private var selectedUniversity: String = "Select University"
+    @State private var selectedUniversity: String?
     @State private var showDropdown = false
     
     var body: some View {
@@ -30,45 +30,48 @@ struct CreateUserView: View {
                             .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
                     )
                 
-                Button(action: { showDropdown = true }) {
-                                HStack {
-                                    Text(selectedUniversity)
-                                        .foregroundColor(.black)
-
-                                    Spacer()
-
-                                    Image(systemName: "chevron.down")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 10, height: 10)
-                                        .foregroundColor(.gray)
-                                }
-                                .padding()
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
-                                )
-                            }
-                            .popover(isPresented: $showDropdown) {
-                                List(viewModel.universities, id: \.self) { university in
-                                    Text(university).onTapGesture {
-                                        selectedUniversity = university
-                                        showDropdown = false
-                                    }
-                                }
-                            }
-
-                            if viewModel.isLoading {
-                                ProgressView()
-                            } else if let error = viewModel.error {
-                                Text("Error: \(error.localizedDescription)")
-                                    .foregroundColor(.red)
-                            }
-
+                // Dropdown Button
                 Button(action: {
-                    // We need to finish this logic later
-                    //
-                    //
+                    self.showDropdown = true
+                }) {
+                    HStack {
+                        Text(selectedUniversity ?? "Select a University")
+                            .foregroundColor(selectedUniversity == nil ? .gray : .black)
+                        Spacer()
+                        Image(systemName: "chevron.down")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 10, height: 10)
+                    }
+                }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color(UIColor.lightGray), lineWidth: 1.5)
+                )
+                .popover(isPresented: $showDropdown) {
+                    ScrollView {
+                        VStack(alignment: .leading) {
+                            ForEach(viewModel.universities, id: \.self) { university in
+                                Text(university)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .contentShape(Rectangle()) // Make sure the tap area includes empty space
+                                    .onTapGesture {
+                                        self.selectedUniversity = university
+                                        self.showDropdown = false
+                                    }
+                                    .padding(.vertical, 10)
+                            }
+                        }
+                        .frame(maxWidth: .infinity) // Use the maximum width available
+                        .padding(.horizontal) // Add some padding on the sides
+                    }
+                    .frame(minWidth: 200, idealWidth: 250, maxWidth: 300, minHeight: 200, idealHeight: 500, maxHeight: 500) // Adjust these values as needed
+                }
+
+                
+                Button(action: {
+                    // Logic to create an account
                 }) {
                     Text("Create an account")
                         .frame(minWidth: 0, maxWidth: .infinity)
@@ -80,20 +83,25 @@ struct CreateUserView: View {
                                 .stroke(Color.teal, lineWidth: 2)
                         )
                 }
-
-                            Spacer()
-                        }
-                        .padding()
-                        .onAppear {
-                            viewModel.fetchUniversityDataIfNeeded()
-                        }
-                    }
+                .padding(.top, 20)
+                
+                Spacer()
+            }
+            .padding()
+            .navigationBarTitle("Create Account", displayMode: .inline)
+            .onAppear {
+                if viewModel.universities.isEmpty {
+                    viewModel.fetchUniversityDataIfNeeded()
                 }
+            }
+        }
+    }
 }
-
 
 struct CreateUserView_Previews: PreviewProvider {
     static var previews: some View {
         CreateUserView()
     }
 }
+
+

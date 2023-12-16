@@ -19,7 +19,6 @@
 		5197A6FA2B253CC00014D399 /* ForumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6F92B253CC00014D399 /* ForumView.swift */; };
 		5197A6FC2B253CD00014D399 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6FB2B253CD00014D399 /* UserProfileView.swift */; };
 		5197A6FE2B253DAB0014D399 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6FD2B253DAB0014D399 /* HomeView.swift */; };
-		5197A7002B26B10F0014D399 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A6FF2B26B10F0014D399 /* StarRatingView.swift */; };
 		5197A7022B26E7240014D399 /* AddRatingSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7012B26E7240014D399 /* AddRatingSecondView.swift */; };
 		5197A7042B2791660014D399 /* StarRatingPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7032B2791660014D399 /* StarRatingPickerView.swift */; };
 		5197A7062B27AC400014D399 /* AddRatingThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */; };
@@ -41,6 +40,10 @@
 		51D295302B2AB1A500E97C6D /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 51D2952F2B2AB1A500E97C6D /* FirebaseFirestoreSwift */; };
 		CCA117402B2A6EC6002B6B55 /* StoreUniversity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */; };
 		CCA117432B2A721C002B6B55 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CCA117422B2A721C002B6B55 /* FirebaseDatabase */; };
+		CCCCB0D12B2D313B00AD2971 /* ForumHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCCB0D02B2D313B00AD2971 /* ForumHomeView.swift */; };
+		CCCCB0D32B2D326500AD2971 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCCB0D22B2D326500AD2971 /* PostView.swift */; };
+		CCCCB0D52B2D386E00AD2971 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCCB0D42B2D386E00AD2971 /* CommentView.swift */; };
+		CCDF8B152B2D07D9004CE463 /* ReviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDF8B142B2D07D9004CE463 /* ReviewListView.swift */; };
 		CCEAC4442B2A37FE00F62C30 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAC4432B2A37FE00F62C30 /* CreateUserView.swift */; };
 		CCEAC4462B2A4C2400F62C30 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
@@ -59,7 +62,6 @@
 		5197A6F92B253CC00014D399 /* ForumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumView.swift; sourceTree = "<group>"; };
 		5197A6FB2B253CD00014D399 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		5197A6FD2B253DAB0014D399 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		5197A6FF2B26B10F0014D399 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		5197A7012B26E7240014D399 /* AddRatingSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingSecondView.swift; sourceTree = "<group>"; };
 		5197A7032B2791660014D399 /* StarRatingPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingPickerView.swift; sourceTree = "<group>"; };
 		5197A7052B27AC3F0014D399 /* AddRatingThirdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingThirdView.swift; sourceTree = "<group>"; };
@@ -73,6 +75,10 @@
 		51C6FC0C2B2A2A2A001F8163 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		51C6FC192B2A2C81001F8163 /* RateMyDormDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RateMyDormDebug.entitlements; sourceTree = "<group>"; };
 		CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUniversity.swift; sourceTree = "<group>"; };
+		CCCCB0D02B2D313B00AD2971 /* ForumHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumHomeView.swift; sourceTree = "<group>"; };
+		CCCCB0D22B2D326500AD2971 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		CCCCB0D42B2D386E00AD2971 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		CCDF8B142B2D07D9004CE463 /* ReviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListView.swift; sourceTree = "<group>"; };
 		CCEAC4432B2A37FE00F62C30 /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,11 +163,14 @@
 				5197A70D2B2926F60014D399 /* AddRatingSuccessView.swift */,
 				5197A6F92B253CC00014D399 /* ForumView.swift */,
 				5197A6FB2B253CD00014D399 /* UserProfileView.swift */,
-				5197A6FF2B26B10F0014D399 /* StarRatingView.swift */,
 				5197A7032B2791660014D399 /* StarRatingPickerView.swift */,
 				CCEAC4432B2A37FE00F62C30 /* CreateUserView.swift */,
 				CCEAC4452B2A4C2400F62C30 /* ProfileView.swift */,
 				CCA1173F2B2A6EC6002B6B55 /* StoreUniversity.swift */,
+				CCDF8B142B2D07D9004CE463 /* ReviewListView.swift */,
+				CCCCB0D02B2D313B00AD2971 /* ForumHomeView.swift */,
+				CCCCB0D22B2D326500AD2971 /* PostView.swift */,
+				CCCCB0D42B2D386E00AD2971 /* CommentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,7 +228,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					5197A6DA2B1BCAAA0014D399 = {
 						CreatedOnToolsVersion = 14.3;
@@ -270,12 +279,13 @@
 				5197A6E82B1BCAB10014D399 /* Persistence.swift in Sources */,
 				5197A6FC2B253CD00014D399 /* UserProfileView.swift in Sources */,
 				51C6FC0A2B2A2A1B001F8163 /* AppDelegate.swift in Sources */,
-				5197A7002B26B10F0014D399 /* StarRatingView.swift in Sources */,
 				5197A70E2B2926F60014D399 /* AddRatingSuccessView.swift in Sources */,
 				5197A6E12B1BCAAA0014D399 /* ContentView.swift in Sources */,
 				5197A7082B28CCD80014D399 /* AddRatingFourthView.swift in Sources */,
 				5197A7102B2961450014D399 /* BlogCardView.swift in Sources */,
 				5197A6FE2B253DAB0014D399 /* HomeView.swift in Sources */,
+				CCCCB0D52B2D386E00AD2971 /* CommentView.swift in Sources */,
+				CCCCB0D12B2D313B00AD2971 /* ForumHomeView.swift in Sources */,
 				5197A70A2B28D0240014D399 /* AddRatingFinalView.swift in Sources */,
 				5197A6DF2B1BCAAA0014D399 /* RateMyDormApp.swift in Sources */,
 				5197A6F42B2535D50014D399 /* HomeNavView.swift in Sources */,
@@ -285,10 +295,12 @@
 				51C6FC0D2B2A2A2D001F8163 /* LoginView.swift in Sources */,
 				CCEAC4462B2A4C2400F62C30 /* ProfileView.swift in Sources */,
 				51C6FC0B2B2A2A1B001F8163 /* SceneDelegate.swift in Sources */,
+				CCDF8B152B2D07D9004CE463 /* ReviewListView.swift in Sources */,
 				5197A7042B2791660014D399 /* StarRatingPickerView.swift in Sources */,
 				5197A6FA2B253CC00014D399 /* ForumView.swift in Sources */,
 				5197A6EB2B1BCAB10014D399 /* RateMyDorm.xcdatamodeld in Sources */,
 				5197A7062B27AC400014D399 /* AddRatingThirdView.swift in Sources */,
+				CCCCB0D32B2D326500AD2971 /* PostView.swift in Sources */,
 				CCA117402B2A6EC6002B6B55 /* StoreUniversity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +344,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -392,6 +405,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
