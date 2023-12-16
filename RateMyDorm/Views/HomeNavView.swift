@@ -9,15 +9,13 @@ import SwiftUI
 
 // a customized tab bar to allow modal subviews
 struct HomeNavView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject var userViewModel: UserViewModel
     @State private var selectedIndex = 0
     @State private var showAddRating = false
     
     @State private var universityName = "Northeastern University" // change to binding var later
     
     let icons = ["house", "book", "plus", "quote.bubble", "person"]
-    let captions = ["Home", "Resources", "Add Review", "Forum", "Me"]
+    let captions = ["Home", "Resource", "Add Review", "Forum", "Me"]
     
     var body: some View {
         VStack {
@@ -27,7 +25,7 @@ struct HomeNavView: View {
                 
                 switch selectedIndex {
                 case 0:
-                    HomeView()
+                    HomeView(universityName: $universityName)
                 case 1:
                     BlogView(universityName: $universityName)
                 case 3:
@@ -35,7 +33,7 @@ struct HomeNavView: View {
                 case 4:
                     UserProfileView()
                 default:
-                    HomeView()
+                    HomeView(universityName: $universityName)
                 }
             }
             
@@ -78,24 +76,8 @@ struct HomeNavView: View {
     }
 }
 
-
-
 struct HomeNavView_Previews: PreviewProvider {
     static var previews: some View {
-        // Create a mock user model
-        let mockUser = UserModel(id: "1", username: "TestUser", email: "test@example.com")
-
-        // Create a mock UserViewModel
-        let userViewModel = UserViewModel()
-        userViewModel.currentUser = mockUser
-
-        // Create a mock PersistenceController for Core Data
-        let persistenceController = PersistenceController.preview
-
-        return HomeNavView()
-            .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            .environmentObject(userViewModel)
+        HomeNavView()
     }
 }
-
-

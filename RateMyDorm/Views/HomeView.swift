@@ -6,135 +6,82 @@
 //
 
 import SwiftUI
+import FirebaseFirestoreSwift
+import FirebaseFirestore
+
+struct Dorm: Identifiable, Codable {
+    @DocumentID var id: String?
+    var name: String
+    var universityName: String
+    var overallRating: Double
+    var numOfReviews: Int
+    var reviews: [String]
+    var photos: [String]
+    var roomRating: Double
+    var buildingRating: Double
+    var locationRating: Double
+    var bathroomRating: Double
+    var numOfClassYears: Int
+    var freshman: Int
+    var sophomore: Int
+    var junior: Int
+    var senior: Int
+    var graduate: Int
+}
 
 struct HomeView: View {
-    
     @State private var searchText = ""
     @State private var isSearching = false
-    
-    private let data: [[String: Any]] = [
-        [
-            "name": "377 Hungtington Ave",
-            "subtitle": "Sub 1",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 2.3,
-            "numRatings": 2
-        ],
-        [
-            "name": "Item 2",
-            "subtitle": "Sub 2",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 5.0,
-            "numRatings": 8
-        ],
-        [
-            "name": "Item 3",
-            "subtitle": "Sub 3",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 4.5,
-            "numRatings": 10
-        ],
-        [
-            "name": "Item 4",
-            "subtitle": "Sub 4",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 3.4,
-            "numRatings": 6
-        ],
-        [
-            "name": "Item 5",
-            "subtitle": "Sub 5",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 4.2,
-            "numRatings": 14
-        ],
-        [
-            "name": "Item 6",
-            "subtitle": "Sub 6",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 2.3,
-            "numRatings": 3
-        ],
-        [
-            "name": "Item 7",
-            "subtitle": "Sub 7",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 5.0,
-            "numRatings": 8
-        ],
-        [
-            "name": "Item 8",
-            "subtitle": "Sub 8",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 4.5,
-            "numRatings": 10
-        ],
-        [
-            "name": "Item 9",
-            "subtitle": "Sub 9",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 3.4,
-            "numRatings": 6
-        ],
-        [
-            "name": "Item 10",
-            "subtitle": "Sub 10",
-            "photo": "https://cc-prod.scene7.com/is/image/CCProdAuthor/d-03-4?$pjpeg$&jpegSize=200&wid=720",
-            "rating": 4.2,
-            "numRatings": 14
-        ]
-    ]
+    @State private var dorms = [Dorm]()
+    @Binding var universityName: String
     
     // filtered search results
-    private var filteredDorms: [[String: Any]] {
+    private var filteredDorms: [Dorm] {
         if searchText.isEmpty {
-            return data
+            return dorms
         } else {
-            return data.filter { dorm in
-                guard let name = dorm["name"] as? String else { return false }
-                return name.localizedCaseInsensitiveContains(searchText)
+            return dorms.filter { dorm in
+                return dorm.name.localizedCaseInsensitiveContains(searchText)
             }
         }
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
-                ForEach(0..<filteredDorms.count, id: \.self) { num in
-                    HStack() {
-                        // dorm image
-                        AsyncImage(url: URL(string: filteredDorms[num]["photo"] as? String ?? "")) { image in image
-                                .resizable()
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 110, height: 90)
-                        .cornerRadius(5)
-                        .padding(.vertical, 5)
-
-                        //dorm title and rating
-                        VStack(alignment: .leading) {
-                            // dorm name
-                            Text(filteredDorms[num]["name"] as? String ?? "")
-                                .bold()
-                                .lineLimit(1)
-                                .padding(.vertical, 3)
-                                .font(.system(size: 18, design: .rounded))
-                            HStack {
-                                // dorm overall rating
-                                StarRatingView(rating: filteredDorms[num]["rating"] as? Double ?? 0, maxRating: 5)
-                                    .frame(width: 80)
-                                // number of reviews
-                                Text("\(filteredDorms[num]["numRatings"] as? Int ?? 0) reviews")
-                                    .font(.system(size: 14, design: .rounded))
-                                    .foregroundColor(Color(UIColor.gray))
+                ForEach(filteredDorms) { dorm in
+                    NavigationLink(destination: DormDetailView(dormName: .constant(dorm.name), overallRating: .constant(dorm.overallRating), roomRating: .constant(dorm.roomRating), buildingRating: .constant(dorm.buildingRating), locationRating: .constant(dorm.locationRating), bathroomRating: .constant(dorm.bathroomRating), numOfReviews: .constant(dorm.numOfReviews), reviews: .constant(dorm.reviews), photos: .constant(dorm.photos), numOfClassYears: .constant(dorm.numOfClassYears), freshman: .constant(dorm.freshman), sophomore: .constant(dorm.sophomore), junior: .constant(dorm.junior), senior: .constant(dorm.senior), graduate: .constant(dorm.graduate))) {
+                        HStack {
+                            // dorm image
+                            AsyncImage(url: URL(string: dorm.photos.first ?? "https://www.ratemydorm.com/_next/image?url=%2Fimg%2Fdorm-square.jpg&w=1920&q=75")) { image in image
+                                    .resizable()
+                            } placeholder: {
+                                ProgressView()
                             }
+                            .frame(width: 120, height: 100)
+                            .cornerRadius(10)
+                            .padding(.vertical, 10)
+                            
+                            //dorm title and rating
+                            VStack(alignment: .leading) {
+                                // dorm name
+                                Text(dorm.name)
+                                    .bold()
+                                    .lineLimit(1)
+                                    .padding(.vertical, 3)
+                                    .font(.system(size: 18, design: .rounded))
+                                HStack {
+                                    // dorm overall rating
+                                    StarRatingView(rating: dorm.overallRating, maxRating: 5)
+                                        .frame(width: 80)
+                                    // number of reviews
+                                    Text("\(dorm.numOfReviews) reviews")
+                                        .font(.system(size: 14, design: .rounded))
+                                        .foregroundColor(Color(UIColor.gray))
+                                }
+                            }
+                            .padding(.leading, 5)
                         }
-                        .padding(.leading, 5)
-
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(Color(UIColor.lightGray))
                     }
                     .listRowInsets(EdgeInsets())
                 }
@@ -144,12 +91,36 @@ struct HomeView: View {
             .searchable(text: $searchText, prompt: "Search Dorm")
             .navigationBarTitle("Northeastern Dorms", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
+            .onAppear {
+                fetchDorms()
+            }
         }
+    }
+    
+    private func fetchDorms() {
+        let db = Firestore.firestore()
+        db.collection("dorm")
+            .whereField("universityName", isEqualTo: universityName)
+            .addSnapshotListener { snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                
+                dorms = documents.compactMap { document in
+                    do {
+                        return try document.data(as: Dorm.self)
+                    } catch {
+                        print("Error decoding dorm: \(error.localizedDescription)")
+                        return nil
+                    }
+                }
+            }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(universityName: .constant("Northeastern University"))
     }
 }
