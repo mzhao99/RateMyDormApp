@@ -170,22 +170,6 @@ struct AddRatingFinalView: View {
                                 .background(.teal)
                                 .cornerRadius(30)
                         })
-                        
-                        
-//                        NavigationLink(
-//                            destination: AddRatingSuccessView(),
-//                            label: {
-//                                Text("Submit")
-//                                    .font(.system(size: 20))
-//                                    .foregroundColor(.white)
-//                                    .frame(width: 100, height: 50)
-//                                    .background(.teal)
-//                                    .cornerRadius(30)
-//                            }
-//                        )
-//                        .onTapGesture {
-//                            submitDataToDatabase()
-//                        }
                     }
                 }
                 .padding()
@@ -232,13 +216,16 @@ struct AddRatingFinalView: View {
             "timeStamp": FieldValue.serverTimestamp()
         ]
         
-        // Add the review data to the "reviews" collection in Firestore
-        Firestore.firestore().collection("review").addDocument(data: reviewData) { error in
+        var reviewRef: DocumentReference?
+        // Add the review data to the "review" collection in Firestore
+        reviewRef = Firestore.firestore().collection("review").addDocument(data: reviewData) { error in
             if let error = error {
                 print("Error adding review to Firestore: \(error.localizedDescription)")
             } else {
                 print("Review added to Firestore successfully")
                 addReviewSuccessful = true
+                
+                updateDormWithReviewId(reviewRef?.documentID)
             }
         }
     }
@@ -253,6 +240,111 @@ struct AddRatingFinalView: View {
     
     func calculateOverallRating() -> Double {
         return (Double)(roomRating + buildingRating + locationRating + bathroomRating) / (Double)(4)
+    }
+    
+    func getNewRating(_ oldOverallRating: Double, _ oldCount: Int, _ newRating: Int) -> Double {
+        let newAverageRating = ((oldOverallRating * Double(oldCount)) + Double(newRating)) / Double(oldCount + 1)
+        return newAverageRating
+    }
+    
+    func getNewRating(_ oldOverallRating: Double, _ oldCount: Int, _ newRating: Double) -> Double {
+        let newAverageRating = ((oldOverallRating * Double(oldCount)) + Double(newRating)) / Double(oldCount + 1)
+        return newAverageRating
+    }
+    
+    func updateDormWithReviewId(_ reviewId: String?) {
+        var oldOverallRating: Double = 0
+        var oldRoomRating: Double = 0
+        var oldBuildingRating: Double = 0
+        var oldLocationRating: Double = 0
+        var oldBathroomRating: Double = 0
+        let oldNumOfReviews: Int = 0
+        let base64String = photo?.base64EncodedString()
+        
+        let dormQuery = Firestore.firestore().collection("dorm").whereField("name", isEqualTo: selectedDorm)
+        dormQuery.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching dorm documents: \(error.localizedDescription)")
+            } else {
+                // Check if any documents match the query
+                if let document = querySnapshot?.documents.first {
+                    // Access the dormRef for the matched document
+                    let dormRef = Firestore.firestore().collection("dorm").document(document.documentID)
+//                    print(document.documentID)
+                    dormRef.getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            oldOverallRating = document["overallRating"] as? Double ?? 0
+                            oldRoomRating = document["roomRating"] as? Double ?? 0
+                            oldBathroomRating = document["bathroomRating"] as? Double ?? 0
+                            oldBuildingRating = document["buildingRating"] as? Double ?? 0
+                            oldLocationRating = document["locationRating"] as? Double ?? 0
+                            
+                            let newOverallRating = getNewRating(oldOverallRating, oldNumOfReviews, calculateOverallRating())
+                            let newRoomRating = getNewRating(oldRoomRating, oldNumOfReviews, roomRating)
+                            let newBathroomRating = getNewRating(oldBathroomRating, oldNumOfReviews, bathroomRating)
+                            let newBuildingRating = getNewRating(oldBuildingRating, oldNumOfReviews, buildingRating)
+                            let newLocationRating = getNewRating(oldLocationRating, oldNumOfReviews, locationRating)
+                            
+                            // Update the array of reviewIds in the dorm document
+                            dormRef.updateData([
+                                "reviews": FieldValue.arrayUnion([reviewId!]),
+                                "photos": FieldValue.arrayUnion([base64String ?? ""]),
+                                "overallRating": newOverallRating,
+                                "roomRating": newRoomRating,
+                                "bathroomRating": newBathroomRating,
+                                "locationRating": newLocationRating,
+                                "buildingRating": newBuildingRating,
+                                "freshman": FieldValue.increment(selectedClassYears[0] ? Int64(1) : Int64(0)),
+                                "sophomore": FieldValue.increment(selectedClassYears[1] ? Int64(1) : Int64(0)),
+                                "junior": FieldValue.increment(selectedClassYears[2] ? Int64(1) : Int64(0)),
+                                "senior": FieldValue.increment(selectedClassYears[3] ? Int64(1) : Int64(0)),
+                                "graduate": FieldValue.increment(selectedClassYears[4] ? Int64(1) : Int64(0)),
+                                "numOfClassYears": FieldValue.increment(Int64(getSelectedClassYears().count)),
+                                "numOfReviews": FieldValue.increment(Int64(1))
+                            ]) { error in
+                                if let error = error {
+                                    print("Error updating dorm document: \(error.localizedDescription)")
+                                } else {
+                                    print("Dorm document updated successfully with review ID")
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    print("No matching dorm documents found")
+                }
+                
+                // Also update the reviewId field in user collection
+                let userQuery = Firestore.firestore().collection("user").whereField("email", isEqualTo: userViewModel.currentUser?.email ?? "N/A")
+                userQuery.getDocuments { (querySnapshot, error) in
+                    if let error = error {
+                        print("Error fetching user documents: \(error.localizedDescription)")
+                    } else {
+                        // Check if any documents match the query
+                        if let document = querySnapshot?.documents.first {
+                            // Access the dormRef for the matched document
+                            let userRef = Firestore.firestore().collection("user").document(document.documentID)
+                            
+                            userRef.getDocument { (document, error) in
+                                userRef.updateData([
+                                    "reviewIds": FieldValue.arrayUnion([reviewId!]),
+                                ]) { error in
+                                    if let error = error {
+                                        print("Error updating user document: \(error.localizedDescription)")
+                                    } else {
+                                        print("User document updated successfully with review ID")
+                                    }
+                                }
+                            }
+                        } else {
+                            print("No matching user documents found")
+                        }
+                    }
+                }
+            }
+        }
+
+ 
     }
 }
 

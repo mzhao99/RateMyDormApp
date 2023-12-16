@@ -21,6 +21,19 @@ struct CreateUserView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userViewModel: UserViewModel
     
+    @State private var universities = [
+        "Boston University",
+        "Harvard University",
+        "Massachusetts Institute of Technology (MIT)",
+        "Northeastern University",
+        "Tufts University",
+        "University of Massachusetts Amherst",
+        "Boston College",
+        "Worcester Polytechnic Institute (WPI)",
+        "Brandeis University",
+        "University of Massachusetts Boston"
+    ]
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 15) {
@@ -76,7 +89,7 @@ struct CreateUserView: View {
                 .popover(isPresented: $showDropdown) {
                     ScrollView {
                         VStack(alignment: .leading) {
-                            ForEach(viewModel.universities, id: \.self) { university in
+                            ForEach(universities, id: \.self) { university in
                                 Text(university)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .contentShape(Rectangle()) // Make sure the tap area includes empty space
