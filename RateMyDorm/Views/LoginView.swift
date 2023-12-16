@@ -147,7 +147,7 @@ struct LoginView: View {
                 // Update the userViewModel with the retrieved user data
                 userViewModel.currentUser = user
             }
-//            print("email: \(userViewModel.currentUser?.email ?? "N/A")" )
+//            print("email: \(userViewModel.cuser2passwordurrentUser?.email ?? "N/A")" )
             loginSuccessful = true
         }
     }
