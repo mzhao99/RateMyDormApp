@@ -59,7 +59,7 @@ class ForumViewModel: ObservableObject {
 
     func fetchForumPosts() {
         let db = Firestore.firestore()
-        db.collection("forums").whereField("parentId", isEqualTo: "none")
+        db.collection("forum").whereField("parentId", isEqualTo: "none")
            .order(by: "timeStamp", descending: true)
            .getDocuments { snapshot, error in
                if let error = error {
@@ -78,6 +78,7 @@ class ForumViewModel: ObservableObject {
 
 struct ForumListView: View {
     @ObservedObject var viewModel = ForumViewModel()
+    @EnvironmentObject var userViewModel: UserViewModel
 
     var body: some View {
         NavigationView {
@@ -91,13 +92,86 @@ struct ForumListView: View {
                 }
             }
             .navigationBarItems(leading:
-                           Text("Forums")
-                               .font(.largeTitle)
-                               .foregroundColor(Color.teal)
-                               .padding(.vertical, 10)
-                       )
+                            Text("Forums")
+                                .font(.largeTitle)
+                                .foregroundColor(Color.teal)
+                                .padding(.vertical, 10),
+                            trailing:
+                            NavigationLink(destination: AddPostView()) {
+                                Text("Add Post")
+                            }
+                        )
         }
     }
+}
+
+
+struct AddPostView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var userViewModel: UserViewModel
+    @State private var title: String = ""
+    @State private var description: String = ""
+
+    var body: some View {
+        Form {
+            TextField("Title", text: $title)
+            TextField("Description", text: $description)
+            Button("Save Post") {
+                savePost()
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
+
+    private func savePost() {
+        guard let userId = userViewModel.currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let newPostId = UUID().uuidString
+
+        let newPostData: [String: Any] = [
+            "id": newPostId,
+            "title": title,
+            "description": description,
+            "timeStamp": Timestamp(date: Date()),
+            "userId": userId,
+            "username": userViewModel.currentUser?.username ?? "",
+            "parentId": "none"
+        ]
+
+        db.collection("forum").document(newPostId).setData(newPostData) { error in
+            if let error = error {
+                // Handle the error
+                print("Error saving new post: \(error)")
+                return
+            }
+
+            // If successful, update the user's forumIds
+            updateUserForumIds(with: newPostId)
+        }
+    }
+    
+    private func updateUserForumIds(with newPostId: String) {
+        guard let userId = userViewModel.currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("user").document(userId)
+
+        // Assuming `forumIds` is an array field in the user's document
+        userRef.updateData([
+            "forumIds": FieldValue.arrayUnion([newPostId])
+        ]) { error in
+            if let error = error {
+                // Handle the error
+                print("Error updating user's forumIds: \(error)")
+            } else {
+                // Successfully updated user's forumIds
+                print("User's forumIds updated with new post ID")
+            }
+        }
+    }
+
+
 }
 
 
@@ -157,4 +231,5 @@ struct ForumListView_Previews: PreviewProvider {
         ForumListView(viewModel: MockForumViewModel())
     }
 }
+
 
