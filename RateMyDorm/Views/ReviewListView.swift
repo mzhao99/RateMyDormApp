@@ -12,7 +12,7 @@ import FirebaseFirestore
 struct Review: Identifiable, Codable {
     @DocumentID var id: String?
     var dormName: String
-    var overallRating: Int
+    var overallRating: Double
     var roomRating: Int
     var buildingRating: Int
     var bathroomRating: Int

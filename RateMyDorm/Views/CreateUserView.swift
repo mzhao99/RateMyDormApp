@@ -19,6 +19,7 @@ struct CreateUserView: View {
     @State private var errorMessage = ""
     @State private var registrationSuccessful = false
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
         NavigationView {
@@ -185,6 +186,7 @@ struct CreateUserView: View {
         do {
             // Add user to 'users' collection in Firestore
             try Firestore.firestore().collection("user").document(userId).setData(from: user)
+            userViewModel.currentUser = user
             // User added to Firestore successfully
             registrationSuccessful = true
         } catch let error {
@@ -198,7 +200,8 @@ struct CreateUserView: View {
 
 struct CreateUserView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateUserView()
+        let userViewModel = UserViewModel()
+        CreateUserView().environmentObject(userViewModel)
     }
 }
 
