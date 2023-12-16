@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct DormDetailView: View {
     @Binding var dormName: String
@@ -23,6 +25,7 @@ struct DormDetailView: View {
     @Binding var junior: Int
     @Binding var senior: Int
     @Binding var graduate: Int
+    @State private var reviewDetails: [Review] = []
     
     var body: some View {
         ScrollView {
@@ -45,7 +48,7 @@ struct DormDetailView: View {
                 Group {
                     Text("Rating Breakdown")
                         .bold()
-                    
+
                     VStack(alignment: .leading) {
                         HStack {
                             Text("Room")
@@ -78,11 +81,11 @@ struct DormDetailView: View {
                     }
                     .padding(.bottom, 15)
                 }
-                
+
                 Group {
                     Text("When They Lived Here")
                         .bold()
-                    
+
                     VStack(alignment: .leading) {
                         HStack {
                             Text("Freshman")
@@ -132,7 +135,7 @@ struct DormDetailView: View {
                     }
                     .padding(.bottom, 15)
                 }
-                
+
                 Text("Browse \(numOfReviews) Reviews")
                     .bold()
             }
@@ -140,14 +143,33 @@ struct DormDetailView: View {
             .padding(.leading, 10)
             .padding(.trailing, 80)
             .padding(.bottom, 0)
-
             
             
-//            RatingCardView(overallRating: .constant(4.5), date: .constant("2023/12/22"), roomType: .constant("Single Room"), comment: .constant("I lived in a seventh floor single. It wasn’t huge, but definitely enough space for one person. I lived in a Hojo triple freshman year and there was no light but seventh floor facing the river was wonderful, you could MIT campus and there was plenty of natural light. AC/heating is an old unit, not like the thermostat in some of the lower floors, so I recommend buying an electric thermostat. The top floor study lounge is great, it has heating problems but is a great chill place to study. Honestly, you have the great location of East, the safety of a security guard, and the privacy of an apartment/bay state. It’s a super quiet and lowkey building. BU’s hidden gem!"), roomRating: .constant(4), buildingRating: .constant(3), locationRating: .constant(4), bathroomRating: .constant(2), photo: .constant("https://www.bu.edu/housing/files/2019/12/18-1773-HUB1-166-1500x624.jpg"))
-//                .padding(.bottom)
-//                .padding(.horizontal, 10)
+            ForEach(reviewDetails) { review in
+//                print(review.timeStamp)
+                RatingCardView(overallRating: .constant(review.overallRating), date: .constant("12/16/2023"), roomType: .constant(review.roomTypes.count == 1 ? "\(review.roomTypes[0]) Room" : "Multiple Room"), comment: .constant(review.comment), roomRating: .constant(review.roomRating), buildingRating: .constant(review.buildingRating), locationRating: .constant(review.locationRating), bathroomRating: .constant(review.bathroomRating), photo: .constant(review.photo))
+                    .padding(.bottom)
+                    .padding(.horizontal, 10)
+            }
+            
         }
         .navigationBarTitle("\(dormName) Reviews", displayMode: .inline)
+        .onAppear{
+            fetchReviews()
+        }
+    }
+    
+    func fetchReviews() {
+        let db = Firestore.firestore()
+        for id in reviews {
+            db.collection("review").document(id).getDocument { snapshot, error in
+                if let review = try? snapshot?.data(as: Review.self) {
+                    self.reviewDetails.append(review)
+                } else if let error = error {
+                    print(error)
+                }
+            }
+        }
     }
 }
 
