@@ -135,7 +135,6 @@
 				51C6FC082B2A2A1B001F8163 /* AppDelegate.swift */,
 				51C6FC092B2A2A1B001F8163 /* SceneDelegate.swift */,
 				51C6FBED2B2A0263001F8163 /* GoogleService-Info.plist */,
-				5197A6F22B25266C0014D399 /* ViewModels */,
 				5197A6F12B25260B0014D399 /* Views */,
 				5197A6DE2B1BCAAA0014D399 /* RateMyDormApp.swift */,
 				5197A6E02B1BCAAA0014D399 /* ContentView.swift */,
@@ -185,13 +184,6 @@
 				CCCCB0D42B2D386E00AD2971 /* CommentView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		5197A6F22B25266C0014D399 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		CCA117412B2A721C002B6B55 /* Frameworks */ = {

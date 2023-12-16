@@ -145,11 +145,11 @@ struct DormDetailView: View {
             .padding(.bottom, 0)
             
             
-//            ForEach(reviewDetails) { review in
-//                RatingCardView(overallRating: .constant(review.overallRating), date: .constant("12/16/2023"), roomType: .constant(review.roomTypes.count == 1 ? "\(review.roomTypes[0]) Room" : "Multiple Room"), comment: .constant(review.comment), roomRating: .constant(review.roomRating), buildingRating: .constant(review.buildingRating), locationRating: .constant(review.locationRating), bathroomRating: .constant(review.bathroomRating), photo: .constant(review.photo))
-//                    .padding(.bottom)
-//                    .padding(.horizontal, 10)
-//            }
+            ForEach(reviewDetails) { review in
+                RatingCardView(overallRating: .constant(review.overallRating), date: .constant("12/16/2023"), roomType: .constant(review.roomTypes.count == 1 ? "\(review.roomTypes[0]) Room" : "Multiple Room"), comment: .constant(review.comment), roomRating: .constant(review.roomRating), buildingRating: .constant(review.buildingRating), locationRating: .constant(review.locationRating), bathroomRating: .constant(review.bathroomRating), photo: .constant(review.photo))
+                    .padding(.bottom)
+                    .padding(.horizontal, 10)
+            }
             
         }
         .navigationBarTitle("\(dormName) Reviews", displayMode: .inline)
