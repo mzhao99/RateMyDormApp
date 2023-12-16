@@ -9,6 +9,24 @@ import SwiftUI
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 
+struct Review: Identifiable, Codable {
+    @DocumentID var id: String?
+    var dormName: String
+    var overallRating: Double
+    var roomRating: Int
+    var buildingRating: Int
+    var bathroomRating: Int
+    var locationRating: Int
+    var classYears: [String]
+    var roomTypes: [String]
+    var comment: String
+    var photo: String?
+    var universityName: String
+    var userId: String
+    var timeStamp: Timestamp
+}
+
+
 struct DormDetailView: View {
     @Binding var dormName: String
     @Binding var overallRating: Double

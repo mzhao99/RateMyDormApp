@@ -6,46 +6,66 @@
 //
 
 import SwiftUI
-
-import SwiftUI
+import Firebase
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct ProfileView: View {
     @State private var selectedTab = "Rating"
+    @State private var userSignOut = false
     @EnvironmentObject var userViewModel: UserViewModel
     
-    
     var body: some View {
-        VStack {
-            // User Profile Header
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Welcome back,")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-                    Text(userViewModel.currentUser?.username ?? "Buddy")
-                                            .font(.largeTitle)
-                                            .fontWeight(.bold)
+        NavigationView {
+            VStack {
+                // User Profile Header
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Welcome back,")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                        Text(userViewModel.currentUser?.username ?? "Buddy")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                    }
+                    Spacer()
+                    Button("Logout") {
+                        do {
+                            try Auth.auth().signOut()
+                            userSignOut = true
+                        } catch let signOutError as NSError {
+                            print("Error signing out: %@", signOutError)
+                        }
+                    }
                 }
+                .padding()
+                
+                // Tabs for Rating, Post, Comment
+                HStack {
+                    TabButton(title: "Rating", selectedTab: $selectedTab)
+                    TabButton(title: "Post", selectedTab: $selectedTab)
+                    TabButton(title: "Comment", selectedTab: $selectedTab)
+                }
+                .padding(.horizontal)
+                
+                // Content below tabs
+                TabView(selection: $selectedTab) {
+                    ReviewsListView().tag("Rating")
+                    PostView().tag("Post")
+                    CommentView().tag("Comment")
+                }
+                
+                
+                
+                NavigationLink(
+                    destination: LoginView().navigationBarHidden(true),
+                    isActive: $userSignOut,
+                    label: { EmptyView() }
+                )
+                .hidden()
+                
                 Spacer()
             }
-            .padding()
-            
-            // Tabs for Rating, Post, Comment
-            HStack {
-                TabButton(title: "Rating", selectedTab: $selectedTab)
-                TabButton(title: "Post", selectedTab: $selectedTab)
-                TabButton(title: "Comment", selectedTab: $selectedTab)
-            }
-            .padding(.horizontal)
-            
-            // Content below tabs
-            TabView(selection: $selectedTab) {
-                ReviewsListView().tag("Rating")
-                PostView().tag("Post")
-                CommentView().tag("Comment")
-            }
-            
-            Spacer()
         }
     }
 }
